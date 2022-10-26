@@ -1,3 +1,47 @@
 <template>
-    
+    <lightning-layout>
+        <lightning-layout-item class="slds-size_medium slds-align_absolute-center slds-size_2-of-3">
+            <lightning-card class="slds-col">
+
+                <!-- TITLE -->
+                <div slot="title">
+                    <h1>Question 3 of 25:</h1>
+                </div>
+
+                <!-- QUESTION -->
+                <div class="slds-p-horizontal_small question">
+                    <p>"Who's the tallest US President?"</p>
+                </div>
+
+                <!-- ANSWER BUTTONS -->
+                <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small answers">
+                    <ul class="slds-size_1-of-1">
+                        <li class="slds-align_absolute-center slds-m-bottom_x-small">
+                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">A. Abraham Lincoln</button>
+                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">B. Barack Obama</button>
+                            <!-- <lightning-button class="slds-col slds-size_1-of-2" label="A. Abraham Lincoln"></lightning-button>
+                            <lightning-button class="slds-col slds-size_1-of-2" label="B. Barack Obama"></lightning-button> -->
+                        </li>
+                        <li class="slds-align_absolute-center ">
+                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">C. Theodore Roosevelt</button>
+                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">D. Thomas Jefferson</button>
+                            <!-- <lightning-button class="slds-col slds-size_1-of-2" label="A. Abraham Lincoln"></lightning-button>
+                            <lightning-button class="slds-col slds-size_1-of-2" label="B. Barack Obama"></lightning-button> -->
+                        </li>
+                        <!-- <li>
+                            <lightning-button class=" slds-col slds-size_1-of-2" label="C. Theodore Roosevelt" variant="brand"></lightning-button>
+                            <lightning-button class="slds-max-small-button--stretch slds-col slds-size_1-of-2" label="D. Thomas Jefferson"></lightning-button>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <!-- FOOTER BUTTONS -->
+                <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
+                    <lightning-button class="slds-col slds-align_absolute-center" label="Verify" variant="brand"></lightning-button>
+                    <lightning-button class="slds-col slds-float_right" label="Next" variant="brand"></lightning-button>
+                </div>
+
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
 </template>

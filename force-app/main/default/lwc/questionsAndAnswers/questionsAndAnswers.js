@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, wire, track } from 'lwc';
 
 // required imports for LMS publish
 import { publish, MessageContext } from 'lightning/messageService';
@@ -33,6 +33,19 @@ const quiz = {
 
 export default class QuestionsAndAnswers extends LightningElement {
 
-    // code here
+    // LMS publish logic
+    @wire(MessageContext)
+    messageContext;
+
+    @track
+    selectedAnswer;
+
+    handleVerifyClick(){
+        // take selected answer's isCorrect val here
+        const payload = {isAnswerCorrect: this.selectedAnswer.isCorrect};
+
+        // publish it to QuestionMessageChannel
+        publish(this.messageContext, questionMC, payload);
+    }
 
 }

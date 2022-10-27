@@ -2,7 +2,7 @@
  * Created by mshkrepa on 10/25/2022.
  */
 
-import {LightningElement, wire} from 'lwc';
+import {LightningElement, track, wire} from 'lwc';
 
 // required imports for LMS subscribe
 import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
@@ -10,7 +10,8 @@ import questionMC from '@salesforce/messageChannel/QuestionMC__c';
 
 export default class Verify extends LightningElement {
 
-    visible = false;
+    @track
+    isVisible = false;
 
     // LMS subscribe logic
     @wire(MessageContext)
@@ -18,6 +19,7 @@ export default class Verify extends LightningElement {
 
     subscription = null;
 
+    @track
     isCorrectAnswer = null;
 
     // subscribe to message channel on connected
@@ -38,11 +40,12 @@ export default class Verify extends LightningElement {
     
     // shape conditional rendering based on received message
     handleAnswerSubmission(message) {
-        visible = false;
+        console.log("verify.handleAnswerSubmission start")
 
-        // i think it works this way ??
+        this.isVisible = false;
         this.isCorrectAnswer = message.isCorrectAnswer;
-        
-        visible = true;
+        this.isVisible = true;
+
+        console.log("verify.handleAnswerSubmission end")
     }
 }

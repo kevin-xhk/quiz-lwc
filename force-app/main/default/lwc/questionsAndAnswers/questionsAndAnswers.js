@@ -42,7 +42,8 @@ export default class QuestionsAndAnswers extends LightningElement {
 
     handleVerifyClick(){
         // take selected answer's isCorrect val here
-        const payload = {isAnswerCorrect: this.selectedAnswer.isCorrect};
+        // const payload = {isAnswerCorrect: this.selectedAnswer.isCorrect};
+        const payload = {isCorrectAnswer: false} //testing purposes only
 
         // publish it to QuestionMessageChannel
         publish(this.messageContext, questionMC, payload);

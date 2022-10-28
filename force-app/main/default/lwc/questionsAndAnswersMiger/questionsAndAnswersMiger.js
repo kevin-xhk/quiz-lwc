@@ -2,60 +2,42 @@
  * Created by mshkrepa on 10/26/2022.
  */
 
-import {LightningElement, wire} from 'lwc';
+import {LightningElement, track} from 'lwc';
 import getQuizQuestion from '@salesforce/apex/QuestionsAndAnswersController.getQuizQuestion';
-import getQuestionAnswers from '@salesforce/apex/QuestionsAndAnswersController.getQuestionAnswers';
-
-import quizQuestionName from '@salesforce/schema/Quiz_Question__c.Name';
-import quizAnswerName from '@salesforce/schema/Quiz_Answer__c.Name';
-
-import { getSObjectValue } from '@salesforce/apex';
 
 export default class QuestionsAndAnswersMiger extends LightningElement {
 
-    quiz = {
-        'id': 1,
-        'description' : "Who's the tallest us president?",
-        'answers' : [
-            {
-                'id': 0,
-                'description':"Abraham Lincoln",
-                'isCorrect': true
-            },
-            {
-                'id': 1,
-                'description':"Barack Obama",
-                'isCorrect': false
-            },
-            {
-                'id': 2,
-                'description':"Theodore Roosevelt",
-                'isCorrect': false
-            },
-            {
-                'id': 3,
-                'description':"Thomas Jefferson",
-                'isCorrect': false
-            },
-        ]
+    @track question;
+    @track firstAnswer;
+    @track secondAnswer;
+    @track thirdAnswer;
+    @track fourthAnswer;
+    @track selectedAnswer;
+    @track firstAnswerValue;
+    @track secondAnswerValue;
+    @track thirdAnswerValue;
+    @track fourthAnswerValue;
+    @track selectedAnswer;
+
+    connectedCallback(){
+        getQuizQuestion()
+            .then(data=>{
+                this.question=data.Name;
+                this.firstAnswer=data.Quiz_Answers__r[0].Name;
+                this.firstAnswerValue=data.Quiz_Answers__r[0].Id;
+                this.secondAnswer=data.Quiz_Answers__r[1].Name;
+                this.secondAnswerValue=data.Quiz_Answers__r[1].Id;
+                this.thirdAnswer=data.Quiz_Answers__r[2].Name;
+                this.thirdAnswerValue=data.Quiz_Answers__r[2].Id;
+                this.fourthAnswer=data.Quiz_Answers__r[3].Name;
+                this.fourthAnswerValue=data.Quiz_Answers__r[3].Id;
+            }).catch(error => {
+            console.log("ERROR / imperative apex call / getQuizQuestion: " + JSON.stringify(error))
+        });
     }
 
-    @wire(getQuizQuestion)
-    questionObject
-
-    @wire(getQuestionAnswers, {questionName: '$question'})
-    questionAnswers
-
-    get question() {
-        return this.questionObject.data ? getSObjectValue(this.questionObject.data, quizQuestionName) : '';
+    selectedAnswerEvent(event){
+        this.selectedAnswer=event.target.value;
     }
-
-    get first_answer(){
-        return this.questionAnswers.data;
-    }
-
-    second_answer=this.quiz.answers[1].description;
-    third_answer=this.quiz.answers[2].description;
-    fourth_answer=this.quiz.answers[3].description;
 
 }

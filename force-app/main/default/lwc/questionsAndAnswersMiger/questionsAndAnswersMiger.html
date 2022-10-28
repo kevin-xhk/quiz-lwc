@@ -22,19 +22,19 @@
                 <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small answers">
                     <ul class="slds-size_1-of-1">
                         <li class="slds-align_absolute-center slds-m-bottom_x-small">
-                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">A. {first_answer}</button>
-                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">B. {second_answer}</button>
+                            <button type="submit" value={firstAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">A. {firstAnswer}</button>
+                            <button type="submit" value={secondAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">B. {secondAnswer}</button>
                         </li>
                         <li class="slds-align_absolute-center ">
-                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">C. {third_answer}</button>
-                            <button type="submit" class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">D. {fourth_answer}</button>
+                            <button type="submit" value={thirdAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">C. {thirdAnswer}</button>
+                            <button type="submit" value={fourthAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12">D. {fourthAnswer}</button>
                         </li>
                     </ul>
                 </div>
 
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
-                    <lightning-button class="slds-col slds-align_absolute-center" label="Verify" variant="brand"></lightning-button>
+                    <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>
                     <lightning-button class="slds-col slds-float_right" label="Next" variant="brand"></lightning-button>
                 </div>
 

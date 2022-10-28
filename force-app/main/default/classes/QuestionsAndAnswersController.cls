@@ -5,18 +5,14 @@
 public with sharing class QuestionsAndAnswersController {
 
     @AuraEnabled (Cacheable = true)
-    public static Quiz__c getQuiz(){
-        return [SELECT Id,Name from Quiz__c WHERE Name='The US President Quiz' ];
-    }
-
-    @AuraEnabled (Cacheable = true)
     public static Quiz_Question__c getQuizQuestion(){
-        return [SELECT Name,(SELECT Name,IsCorrect__c FROM Quiz_Answers__r) from Quiz_Question__c WHERE Quiz__r.Name='The US President Quiz' ];
+        return [SELECT Name,(SELECT Id,Name FROM Quiz_Answers__r) from Quiz_Question__c WHERE Quiz__r.Name='The US President Quiz' ];
     }
 
+    // checks for answer correctness
     @AuraEnabled (Cacheable = true)
-    public static List<Quiz_Answer__c> getQuestionAnswers(String questionName){
-        return [SELECT Name,IsCorrect__c from Quiz_Answer__c WHERE Quiz_Question__r.Name=:questionName ];
+    public static Boolean verifyAnswer(Id ansId) {
+        return [SELECT isCorrect__c FROM Quiz_Answer__c WHERE Id = :ansId].isCorrect__c;
     }
 
 }

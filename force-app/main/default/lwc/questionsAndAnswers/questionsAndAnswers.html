@@ -1,3 +1,8 @@
+<!--
+ - Created by mshkrepa on 10/26/2022.
+ -->
+
+<!-- Questions And Answers Miger -->
 <template>
     <lightning-layout>
         <lightning-layout-item class="slds-size_medium slds-align_absolute-center slds-size_2-of-3">
@@ -5,31 +10,32 @@
 
                 <!-- TITLE -->
                 <div slot="title">
-                    <h1>Question 3 of 25:</h1>
+                    <h1>Question X of Y:</h1>
                 </div>
 
                 <!-- QUESTION -->
                 <div class="slds-p-horizontal_small question">
-                    <p>"Who's the tallest US President?"</p>
+                    <p>{question}</p>
                 </div>
 
-                <!-- ANSWER BUTTONS --> 
+                <!-- ANSWER BUTTONS -->
                 <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small answers">
                     <ul class="slds-size_1-of-1">
                         <li class="slds-align_absolute-center slds-m-bottom_x-small">
-                            <button type="submit" class="slds-button slds-button--neutral slds-button_stretch slds-col slds-size_5-of-12">A. Abraham Lincoln</button>
-                            <button type="submit" class="slds-button slds-button--neutral slds-button_stretch slds-col slds-size_5-of-12">B. Barack Obama</button>
+                            <button type="submit" value={firstAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">A. {firstAnswer}</button>
+                            <button type="submit" value={secondAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">B. {secondAnswer}</button>
                         </li>
                         <li class="slds-align_absolute-center ">
-                            <button type="submit" class="slds-button slds-button--neutral slds-button_stretch slds-col slds-size_5-of-12">C. Theodore Roosevelt</button>
-                            <button type="submit" class="slds-button slds-button--neutral slds-button_stretch slds-col slds-size_5-of-12">D. Thomas Jefferson</button>
+                            <button type="submit" value={thirdAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">C. {thirdAnswer}</button>
+                            <button type="submit" value={fourthAnswerValue} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">D. {fourthAnswer}</button>
                         </li>
                     </ul>
                 </div>
 
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
-                    <lightning-button class="slds-col slds-align_absolute-center" label="Verify" variant="brand" onclick={handleVerifyClick}></lightning-button>
+                    <lightning-button class="slds-col slds-float_right" label="Prev." variant="brand"></lightning-button>
+                    <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>
                     <lightning-button class="slds-col slds-float_right" label="Next" variant="brand"></lightning-button>
                 </div>
 

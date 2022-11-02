@@ -3,6 +3,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>verify</componentName>
+                <identifier>c_verify</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>questionsAndAnswersMiger</componentName>
                 <identifier>c_questionsAndAnswersMiger</identifier>
             </componentInstance>

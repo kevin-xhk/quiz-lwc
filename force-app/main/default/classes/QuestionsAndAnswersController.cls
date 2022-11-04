@@ -5,8 +5,8 @@
 public with sharing class QuestionsAndAnswersController {
 
     @AuraEnabled (Cacheable = true)
-    public static Quiz_Question__c getQuizQuestion(){
-        return [SELECT Name,(SELECT Id,Name FROM Quiz_Answers__r) from Quiz_Question__c WHERE Quiz__r.Name='The US President Quiz' ];
+    public static Quiz_Question__c getQuizQuestion(String question_name){
+        return [SELECT Name,(SELECT Id,Name FROM Quiz_Answers__r) from Quiz_Question__c WHERE Name=:question_name ];
     }
 
     // checks for answer correctness

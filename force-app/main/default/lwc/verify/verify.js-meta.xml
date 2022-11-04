@@ -6,5 +6,6 @@
     <masterLabel>Verify</masterLabel>
     <targets>
         <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
     </targets>
 </LightningComponentBundle>

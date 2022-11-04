@@ -15,7 +15,7 @@
 
                 <!-- QUESTION -->
                 <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small answers">
-                    <p>{question}</p>
+                    <p>{question_name}</p>
                 </div>
 
                 <!-- ANSWER BUTTONS -->
@@ -23,7 +23,7 @@
                     <ul class="slds-size_1-of-1">
                         <template for:each={answers} for:item="answer">
                             <li class="slds-align_absolute-center slds-m-bottom_x-small" key={answer.Id}>
-                                <button type="submit" value={answer.Id} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">{answer.Name}</button>
+                                <button disabled={disabled} type="submit" value={answer.Id} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">{answer.Name}</button>
                             </li>
                         </template>
                     </ul>
@@ -31,9 +31,8 @@
 
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
-                    <lightning-button class="slds-col slds-float_right" label="Prev." variant="brand"></lightning-button>
                     <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>
-                    <lightning-button class="slds-col slds-float_right" label="Next" variant="brand"></lightning-button>
+                    <lightning-button disabled={nextButtonDisabled} class="slds-col slds-align_absolute-center" label="Next" onclick={handleNext} variant="brand"></lightning-button>
                 </div>
 
             </lightning-card>

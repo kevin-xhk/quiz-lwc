@@ -7,7 +7,6 @@ import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService
 import questionMC from '@salesforce/messageChannel/QuestionMC__c';
 import verifyAnswer from '@salesforce/apex/QuestionsAndAnswersController.verifyAnswer';
 
-
 export default class Verify extends LightningElement {
 
     @track isVisible = false;
@@ -36,7 +35,6 @@ export default class Verify extends LightningElement {
     // shape conditional rendering based on received message
     handleAnswerSubmission(message) {
         this.isVisible = false;
-
         verifyAnswer({ansId : message.selectedAnswerId})
             .then(result => {
                 console.log('verify / apex / verifyAnswer: ' + result);

@@ -10,7 +10,7 @@
             <assignToReference>UserSelectedAnswers</assignToReference>
             <operator>Add</operator>
             <value>
-                <elementReference>Quiz.selectedAnswerForFlow</elementReference>
+                <elementReference>Questions_And_Answers.selectedAnswerForFlow</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -59,8 +59,8 @@
         </rules>
     </decisions>
     <environments>Default</environments>
-    <interviewLabel>Test_Flow {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Test_Flow</label>
+    <interviewLabel>Quiz Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Quiz Flow</label>
     <loops>
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
@@ -176,9 +176,9 @@
         <label>Quiz Result</label>
         <locationX>176</locationX>
         <locationY>1526</locationY>
-        <allowBack>true</allowBack>
+        <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>true</allowPause>
+        <allowPause>false</allowPause>
         <fields>
             <name>UserScoreOutputField</name>
             <fieldText>&lt;p&gt;Your Score: {!UserScore}&lt;/p&gt;</fieldText>
@@ -212,8 +212,8 @@
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
-            <name>Quiz</name>
-            <extensionName>c:questionsAndAnswersMiger</extensionName>
+            <name>Questions_And_Answers</name>
+            <extensionName>c:questionsAndAnswers</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
                 <name>question_name</name>

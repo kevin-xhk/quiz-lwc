@@ -22,6 +22,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Quiz_Report__c.Time_Seconds__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Report__c.User__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Quiz__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -30,6 +40,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Quiz_Question__c-Quiz_Question Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Quiz_Report__c-Quiz Report Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Quiz__c-Quiz Layout</layout>
@@ -50,6 +63,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>true</modifyAllRecords>
         <object>Quiz_Question__c</object>
+        <viewAllRecords>true</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>true</allowDelete>
+        <allowEdit>true</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>true</modifyAllRecords>
+        <object>Quiz_Report__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

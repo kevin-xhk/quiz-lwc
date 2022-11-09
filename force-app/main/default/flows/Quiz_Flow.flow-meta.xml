@@ -4,13 +4,20 @@
     <assignments>
         <name>Add_Selected_Answer_To_Collection</name>
         <label>Add Selected Answer To Collection</label>
-        <locationX>264</locationX>
-        <locationY>518</locationY>
+        <locationX>270</locationX>
+        <locationY>758</locationY>
         <assignmentItems>
             <assignToReference>UserSelectedAnswers</assignToReference>
             <operator>Add</operator>
             <value>
                 <elementReference>Questions_And_Answers.selectedAnswerForFlow</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>TotalMilliseconds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Questions_And_Answers.totalMilliseconds</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -20,8 +27,8 @@
     <assignments>
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
-        <locationX>264</locationX>
-        <locationY>1094</locationY>
+        <locationX>270</locationX>
+        <locationY>1334</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -34,10 +41,35 @@
         </connector>
     </assignments>
     <decisions>
+        <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
+        <label>Did the User score higher than the Quiz threshold?</label>
+        <locationX>182</locationX>
+        <locationY>1646</locationY>
+        <defaultConnector>
+            <targetReference>Quiz_Unsuccessful</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Quiz_Threshold_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>UserScore</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <elementReference>Get_Quiz.Threshold__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>You_Passed_the_Quiz</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
-        <locationX>396</locationX>
-        <locationY>974</locationY>
+        <locationX>402</locationX>
+        <locationY>1214</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -59,27 +91,33 @@
         </rules>
     </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>Calculate_Total_Time</name>
+        <dataType>String</dataType>
+        <expression>TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60*60))/(1000*60))))+&quot;:&quot;+
+TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))</expression>
+    </formulas>
     <interviewLabel>Quiz Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Quiz Flow</label>
     <loops>
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
-        <locationX>176</locationX>
-        <locationY>854</locationY>
+        <locationX>182</locationX>
+        <locationY>1094</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
             <targetReference>If_Current_Answer_is_Correct</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Get_Quiz</targetReference>
+            <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
         <name>Loop_Through_Questions</name>
         <label>Loop Through Questions</label>
-        <locationX>176</locationX>
-        <locationY>278</locationY>
+        <locationX>182</locationX>
+        <locationY>518</locationY>
         <collectionReference>Get_Quiz_Questions</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -108,11 +146,37 @@
         </value>
     </processMetadataValues>
     <processType>Flow</processType>
+    <recordCreates>
+        <name>Create_Quiz_Report</name>
+        <label>Create Quiz Report</label>
+        <locationX>182</locationX>
+        <locationY>1982</locationY>
+        <inputAssignments>
+            <field>Quiz__c</field>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Time_Seconds__c</field>
+            <value>
+                <elementReference>Calculate_Total_Time</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>User__c</field>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Quiz_Report__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
     <recordLookups>
         <name>Get_Answers</name>
         <label>Get Answers</label>
-        <locationX>176</locationX>
-        <locationY>734</locationY>
+        <locationX>182</locationX>
+        <locationY>974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -132,11 +196,11 @@
     <recordLookups>
         <name>Get_Quiz</name>
         <label>Get Quiz</label>
-        <locationX>176</locationX>
-        <locationY>1406</locationY>
+        <locationX>182</locationX>
+        <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Quiz_Result</targetReference>
+            <targetReference>Welcome_to_the_Quiz</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -153,8 +217,8 @@
     <recordLookups>
         <name>Get_Quiz_Questions</name>
         <label>Get Quiz Questions</label>
-        <locationX>176</locationX>
-        <locationY>158</locationY>
+        <locationX>182</locationX>
+        <locationY>398</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Through_Questions</targetReference>
@@ -172,31 +236,29 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
-        <name>Quiz_Result</name>
-        <label>Quiz Result</label>
-        <locationX>176</locationX>
-        <locationY>1526</locationY>
+        <name>Quiz_Unsuccessful</name>
+        <label>Quiz Unsuccessful</label>
+        <locationX>314</locationX>
+        <locationY>1766</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Quiz_Report</targetReference>
+        </connector>
         <fields>
-            <name>UserScoreOutputField</name>
-            <fieldText>&lt;p&gt;Your Score: {!UserScore}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
-        </fields>
-        <fields>
-            <name>QuizThresholdOutputField</name>
-            <fieldText>&lt;p&gt;Quiz Threshold: {!Get_Quiz.Threshold__c}&lt;/p&gt;</fieldText>
+            <name>Copy_1_of_PassedQuizText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Oh, you didn&apos;t pass! Try again!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Your Score: {!UserScore}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Quiz Threshold: {!Get_Quiz.Threshold__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;﻿Your Time: {!Calculate_Total_Time}&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
+        <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Show_LWC_For_Question</name>
         <label>Show LWC For Question</label>
-        <locationX>264</locationX>
-        <locationY>398</locationY>
+        <locationX>270</locationX>
+        <locationY>638</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -228,11 +290,49 @@
         <showFooter>false</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <start>
-        <locationX>50</locationX>
-        <locationY>0</locationY>
+    <screens>
+        <name>Welcome_to_the_Quiz</name>
+        <label>Welcome to the Quiz</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
         <connector>
             <targetReference>Get_Quiz_Questions</targetReference>
+        </connector>
+        <fields>
+            <name>WelcomeText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Welcome to: {!Get_Quiz.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Here&apos;s a quick description before you get started:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Description__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;The threshold for passing the quiz is &lt;/span&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Threshold__c}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Ready? Click Next start.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>You_Passed_the_Quiz</name>
+        <label>Quiz Successful</label>
+        <locationX>50</locationX>
+        <locationY>1766</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Create_Quiz_Report</targetReference>
+        </connector>
+        <fields>
+            <name>PassedQuizText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Congrats! You passed the quiz!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Your Score: {!UserScore}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Quiz Threshold: {!Get_Quiz.Threshold__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Your Time: {!Calculate_Total_Time}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Quiz</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -242,6 +342,14 @@
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>TotalMilliseconds</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
     </variables>
     <variables>
         <name>UserScore</name>

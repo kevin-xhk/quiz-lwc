@@ -12,6 +12,7 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="question_name" type="String" label="Question Name" description="Question Name"/>
             <property name="selectedAnswerForFlow" type="String" label="Selected Answer" description="Selected Answer" role="outputOnly"/>
+            <property name="totalMilliseconds" type="Integer" label="Total Milliseconds" description="Total Milliseconds" role="outputOnly"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

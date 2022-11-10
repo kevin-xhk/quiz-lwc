@@ -94,8 +94,8 @@
     <formulas>
         <name>Calculate_Total_Time</name>
         <dataType>String</dataType>
-        <expression>TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60*60))/(1000*60))))+&quot;:&quot;+
-TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))</expression>
+        <expression>TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60*60))/(1000*60))))+&quot; min &quot;+
+TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expression>
     </formulas>
     <interviewLabel>Quiz Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Quiz Flow</label>
@@ -303,7 +303,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))</expression>
         </connector>
         <fields>
             <name>WelcomeText</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Welcome to: {!Get_Quiz.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Here&apos;s a quick description before you get started:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Description__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;The threshold for passing the quiz is &lt;/span&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Threshold__c}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Ready? Click Next start.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Welcome to: {!Get_Quiz.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Here&apos;s a quick description before you get started:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Description__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;The threshold for passing the quiz is &lt;/span&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Threshold__c}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Ready? Click Next to start.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>

@@ -23,7 +23,7 @@
                     <ul class="slds-size_1-of-1">
                         <template for:each={answers} for:item="answer">
                             <li class="slds-align_absolute-center slds-m-bottom_x-small" key={answer.Id}>
-                                <button disabled={disabled} type="submit" value={answer.Id} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">{answer.Name}</button>
+                                <button disabled={disabled} type="submit" value={answer.Id} onclick={selectedAnswerEvent} class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12">{answer.Description__c}</button>
                             </li>
                         </template>
                     </ul>

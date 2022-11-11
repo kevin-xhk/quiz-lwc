@@ -7,22 +7,27 @@
     <custom>false</custom>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Quiz_Answer__c.Description__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Quiz_Answer__c.IsCorrect__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Quiz_Report__c.Is_Passed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
-        <field>Quiz_Question__c.Description__c</field>
+        <field>Quiz_Report__c.Quiz_Threshold__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Quiz_Report__c.Time_Seconds__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz_Report__c.User_Score__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -33,6 +38,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Quiz__c.Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Quiz__c.Is_Skippable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <layoutAssignments>
@@ -97,6 +107,10 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>Quiz_Question__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>Quiz_Report__c</tab>
         <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <tabVisibilities>

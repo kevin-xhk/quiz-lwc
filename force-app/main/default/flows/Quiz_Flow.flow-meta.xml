@@ -4,8 +4,8 @@
     <assignments>
         <name>Add_Selected_Answer_To_Collection</name>
         <label>Add Selected Answer To Collection</label>
-        <locationX>270</locationX>
-        <locationY>758</locationY>
+        <locationX>754</locationX>
+        <locationY>1550</locationY>
         <assignmentItems>
             <assignToReference>UserSelectedAnswers</assignToReference>
             <operator>Add</operator>
@@ -27,8 +27,8 @@
     <assignments>
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
-        <locationX>270</locationX>
-        <locationY>1334</locationY>
+        <locationX>754</locationX>
+        <locationY>2126</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -40,11 +40,27 @@
             <targetReference>For_Each_Answer</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Set_isQuizAlreadyTaken_to_True</name>
+        <label>Set isQuizAlreadyTaken to True</label>
+        <locationX>446</locationX>
+        <locationY>518</locationY>
+        <assignmentItems>
+            <assignToReference>is_Quiz_Already_Taken</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>For_Each_Relevant_Quiz_Report</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
-        <locationX>182</locationX>
-        <locationY>1646</locationY>
+        <locationX>666</locationX>
+        <locationY>2438</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -68,8 +84,8 @@
     <decisions>
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
-        <locationX>402</locationX>
-        <locationY>1214</locationY>
+        <locationX>886</locationX>
+        <locationY>2006</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -90,6 +106,56 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>If_the_User_has_already_passed_this_quiz</name>
+        <label>If the User has already passed this quiz</label>
+        <locationX>578</locationX>
+        <locationY>398</locationY>
+        <defaultConnector>
+            <targetReference>For_Each_Relevant_Quiz_Report</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Quiz_Already_Passed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>For_Each_Relevant_Quiz_Report.Is_Passed__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Set_isQuizAlreadyTaken_to_True</targetReference>
+            </connector>
+            <label>Quiz Already Passed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_the_Quiz_Already_Taken</name>
+        <label>Is the Quiz Already Taken?</label>
+        <locationX>358</locationX>
+        <locationY>830</locationY>
+        <defaultConnector>
+            <targetReference>Get_Quiz</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Quiz_Already_Taken</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>is_Quiz_Already_Taken</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Quiz_Already_Passed_Screen</targetReference>
+            </connector>
+            <label>Quiz Already Taken</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>Calculate_Total_Time</name>
@@ -102,8 +168,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <loops>
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
-        <locationX>182</locationX>
-        <locationY>1094</locationY>
+        <locationX>666</locationX>
+        <locationY>1886</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -114,10 +180,24 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         </noMoreValuesConnector>
     </loops>
     <loops>
+        <name>For_Each_Relevant_Quiz_Report</name>
+        <label>For Each Relevant Quiz Report</label>
+        <locationX>358</locationX>
+        <locationY>278</locationY>
+        <collectionReference>Get_Quiz_Reports</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>If_the_User_has_already_passed_this_quiz</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Is_the_Quiz_Already_Taken</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
         <name>Loop_Through_Questions</name>
         <label>Loop Through Questions</label>
-        <locationX>182</locationX>
-        <locationY>518</locationY>
+        <locationX>666</locationX>
+        <locationY>1310</locationY>
         <collectionReference>Get_Quiz_Questions</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -149,8 +229,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <recordCreates>
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
-        <locationX>182</locationX>
-        <locationY>1982</locationY>
+        <locationX>666</locationX>
+        <locationY>2774</locationY>
         <inputAssignments>
             <field>Quiz__c</field>
             <value>
@@ -175,8 +255,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <recordLookups>
         <name>Get_Answers</name>
         <label>Get Answers</label>
-        <locationX>182</locationX>
-        <locationY>974</locationY>
+        <locationX>666</locationX>
+        <locationY>1766</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -196,8 +276,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <recordLookups>
         <name>Get_Quiz</name>
         <label>Get Quiz</label>
-        <locationX>182</locationX>
-        <locationY>158</locationY>
+        <locationX>666</locationX>
+        <locationY>950</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Welcome_to_the_Quiz</targetReference>
@@ -217,8 +297,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <recordLookups>
         <name>Get_Quiz_Questions</name>
         <label>Get Quiz Questions</label>
-        <locationX>182</locationX>
-        <locationY>398</locationY>
+        <locationX>666</locationX>
+        <locationY>1190</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Loop_Through_Questions</targetReference>
@@ -235,11 +315,55 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <object>Quiz_Question__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Quiz_Reports</name>
+        <label>Get Quiz Reports</label>
+        <locationX>358</locationX>
+        <locationY>158</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>For_Each_Relevant_Quiz_Report</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Quiz__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>User__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$User.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Quiz_Report__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Quiz_Already_Passed_Screen</name>
+        <label>Quiz Already Passed</label>
+        <locationX>50</locationX>
+        <locationY>950</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>QuizAlreadyPassedMessage</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Sorry, but you cannot take this quiz, since you already passed it! Click Finish to go back.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <screens>
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
-        <locationX>314</locationX>
-        <locationY>1766</locationY>
+        <locationX>798</locationX>
+        <locationY>2558</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -257,8 +381,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <screens>
         <name>Show_LWC_For_Question</name>
         <label>Show LWC For Question</label>
-        <locationX>270</locationX>
-        <locationY>638</locationY>
+        <locationX>754</locationX>
+        <locationY>1430</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -280,7 +404,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
             <inputParameters>
                 <name>question_name</name>
                 <value>
-                    <elementReference>Loop_Through_Questions.Name</elementReference>
+                    <elementReference>Loop_Through_Questions.Description__c</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -293,8 +417,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <screens>
         <name>Welcome_to_the_Quiz</name>
         <label>Welcome to the Quiz</label>
-        <locationX>182</locationX>
-        <locationY>278</locationY>
+        <locationX>666</locationX>
+        <locationY>1070</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -312,8 +436,8 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <screens>
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
-        <locationX>50</locationX>
-        <locationY>1766</locationY>
+        <locationX>534</locationX>
+        <locationY>2558</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -329,13 +453,23 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>56</locationX>
+        <locationX>232</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Quiz</targetReference>
+            <targetReference>Get_Quiz_Reports</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>is_Quiz_Already_Taken</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>

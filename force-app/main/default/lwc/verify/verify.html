@@ -4,4 +4,28 @@
 
 <!-- Verify -->
 <template>
+    <lightning-layout>
+        <lightning-layout-item class="slds-size_medium slds-align_absolute-center slds-size_2-of-3" >
+            <!-- render cards only when answer is submitted -->
+            <template if:true={isVisible}>
+                <!-- correct answer card -->
+                <template if:true={isCorrectAnswer}>
+                    <div class="slds-notify slds-notify_toast slds-theme_success">
+                        <div class="slds-notify__content slds-align_absolute-center">
+                            <h2 class="slds-text-heading_small ">Correct!</h2>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- wrong answer card -->
+                <template if:false={isCorrectAnswer}>
+                    <div class="slds-notify slds-notify_toast slds-theme_error">
+                        <div class="slds-notify__content slds-align_absolute-center">
+                            <h2 class="slds-text-heading_small ">Wrong!</h2>
+                        </div>
+                    </div>
+                </template>
+            </template>
+        </lightning-layout-item>
+    </lightning-layout>
 </template>

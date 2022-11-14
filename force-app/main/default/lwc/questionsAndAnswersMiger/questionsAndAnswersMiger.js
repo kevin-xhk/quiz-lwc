@@ -16,8 +16,6 @@ export default class QuestionsAndAnswers extends LightningElement {
     @track answers;
     @track disabled=false;
     @track nextButtonDisabled=true;
-    timeIntervalInstance;
-    @api totalMilliseconds = 0;
 
     @wire(MessageContext) messageContext;
     @track selectedAnswer;
@@ -25,7 +23,6 @@ export default class QuestionsAndAnswers extends LightningElement {
     handleNext() {
         if (this.availableActions.find((action) => action === "NEXT")) {
             const navigateNextEvent = new FlowNavigationNextEvent();
-            clearInterval(this.timeIntervalInstance);
             this.dispatchEvent(navigateNextEvent);
         }
     }
@@ -37,10 +34,6 @@ export default class QuestionsAndAnswers extends LightningElement {
             }).catch(error => {
             console.log("ERROR / imperative apex call / getQuizQuestion: " + JSON.stringify(error))
         });
-        var parentThis = this;
-        this.timeIntervalInstance = setInterval(function() {
-            parentThis.totalMilliseconds += 100;
-        }, 100);
     }
 
     selectedAnswerEvent(event){
@@ -61,7 +54,6 @@ export default class QuestionsAndAnswers extends LightningElement {
     }
 
     handleVerifyClick(){
-        clearInterval(this.timeIntervalInstance);
         this.disabled=true;
         const payload = {selectedAnswerId: this.selectedAnswer.value}
         publish(this.messageContext, questionMC, payload);

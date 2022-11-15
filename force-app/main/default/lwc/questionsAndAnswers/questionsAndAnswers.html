@@ -32,6 +32,14 @@
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
                     <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>
+                    <template if:true={isSkippable}>
+                        <lightning-button
+                                class="slds-col slds-align_absolute-center"
+                                label="Skip" onclick={handleSkip}
+                                variant="brand"
+                        >
+                        </lightning-button>
+                    </template>
                     <lightning-button disabled={nextButtonDisabled} class="slds-col slds-align_absolute-center" label="Next" onclick={handleNext} variant="brand"></lightning-button>
                 </div>
 

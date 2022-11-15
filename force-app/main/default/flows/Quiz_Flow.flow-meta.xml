@@ -4,8 +4,8 @@
     <assignments>
         <name>Add_Selected_Answer_To_Collection</name>
         <label>Add Selected Answer To Collection</label>
-        <locationX>754</locationX>
-        <locationY>1550</locationY>
+        <locationX>930</locationX>
+        <locationY>1670</locationY>
         <assignmentItems>
             <assignToReference>UserSelectedAnswers</assignToReference>
             <operator>Add</operator>
@@ -13,6 +13,15 @@
                 <elementReference>Questions_And_Answers.selectedAnswerForFlow</elementReference>
             </value>
         </assignmentItems>
+        <connector>
+            <targetReference>Add_time_spent</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Add_time_spent</name>
+        <label>Add time spent</label>
+        <locationX>842</locationX>
+        <locationY>1886</locationY>
         <assignmentItems>
             <assignToReference>TotalMilliseconds</assignToReference>
             <operator>Add</operator>
@@ -28,7 +37,7 @@
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
         <locationX>754</locationX>
-        <locationY>2126</locationY>
+        <locationY>2462</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -60,7 +69,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>666</locationX>
-        <locationY>2438</locationY>
+        <locationY>2774</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -85,7 +94,7 @@
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
         <locationX>886</locationX>
-        <locationY>2006</locationY>
+        <locationY>2342</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -132,6 +141,32 @@
         </rules>
     </decisions>
     <decisions>
+        <description>Checks if question was skipped. We can check it through if selected answer is empty.</description>
+        <name>Is_question_skipped</name>
+        <label>Is question skipped?</label>
+        <locationX>842</locationX>
+        <locationY>1550</locationY>
+        <defaultConnector>
+            <targetReference>Add_Selected_Answer_To_Collection</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Skipped</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Questions_And_Answers.selectedAnswerForFlow</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue></stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_time_spent</targetReference>
+            </connector>
+            <label>Skipped</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Is_the_Quiz_Already_Taken</name>
         <label>Is the Quiz Already Taken?</label>
         <locationX>358</locationX>
@@ -169,7 +204,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
         <locationX>666</locationX>
-        <locationY>1886</locationY>
+        <locationY>2222</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -230,7 +265,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>666</locationX>
-        <locationY>2774</locationY>
+        <locationY>3110</locationY>
         <inputAssignments>
             <field>Quiz__c</field>
             <value>
@@ -262,7 +297,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>Get_Answers</name>
         <label>Get Answers</label>
         <locationX>666</locationX>
-        <locationY>1766</locationY>
+        <locationY>2102</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -369,7 +404,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>798</locationX>
-        <locationY>2558</locationY>
+        <locationY>2894</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -387,13 +422,13 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
     <screens>
         <name>Show_LWC_For_Question</name>
         <label>Show LWC For Question</label>
-        <locationX>754</locationX>
+        <locationX>842</locationX>
         <locationY>1430</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Add_Selected_Answer_To_Collection</targetReference>
+            <targetReference>Is_question_skipped</targetReference>
         </connector>
         <fields>
             <name>Verify</name>
@@ -411,6 +446,18 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
                 <name>question_name</name>
                 <value>
                     <elementReference>Loop_Through_Questions.Description__c</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>isSkippable</name>
+                <value>
+                    <elementReference>Get_Quiz.Is_Skippable__c</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>recordId</name>
+                <value>
+                    <elementReference>recordId</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -443,7 +490,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>534</locationX>
-        <locationY>2558</locationY>
+        <locationY>2894</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

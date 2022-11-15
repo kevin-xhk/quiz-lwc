@@ -10,6 +10,8 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
+            <property name="recordId" type="String" label="Record Id" description="Record Id"/>
+            <property name="isSkippable" type="Boolean" label="Is skippable" description="Check if quiz is skippable"/>
             <property name="question_name" type="String" label="Question Name" description="Question Name"/>
             <property name="selectedAnswerForFlow" type="String" label="Selected Answer" description="Selected Answer" role="outputOnly"/>
             <property name="totalMilliseconds" type="Integer" label="Total Milliseconds" description="Total Milliseconds" role="outputOnly"/>

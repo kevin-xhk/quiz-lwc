@@ -16,6 +16,8 @@ export default class QuestionsAndAnswers extends LightningElement {
     @track answers;
     @track disabled=false;
     @track nextButtonDisabled=true;
+    @api recordId;
+    @api isSkippable;
     timeIntervalInstance;
     @api totalMilliseconds = 0;
 
@@ -28,6 +30,11 @@ export default class QuestionsAndAnswers extends LightningElement {
             clearInterval(this.timeIntervalInstance);
             this.dispatchEvent(navigateNextEvent);
         }
+    }
+
+    handleSkip() {
+        this.selectedAnswerForFlow = '';
+        this.handleNext();
     }
 
     connectedCallback(){

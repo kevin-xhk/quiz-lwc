@@ -42,7 +42,17 @@ $RECYCLE.BIN/
 #IntelliJ files
 .idea
 .idea/workspace*
-
+.idea/vcs.xml
+.idea/*
 
 #Illuminated Cloud files
 IlluminatedCloud
+
+
+#vscode
+.vscode/*
+.vscode/extensions.json
+.vscode/launch.json
+.vscode/settings.json
+
+.idea/vcs.xml

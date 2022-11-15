@@ -38,3 +38,11 @@ $RECYCLE.BIN/
 
 # Local environment variables
 .env
+
+#IntelliJ files
+.idea
+.idea/workspace*
+
+
+#Illuminated Cloud files
+IlluminatedCloud

@@ -37,6 +37,11 @@ export default class QuestionsAndAnswers extends LightningElement {
         this.handleNext();
     }
 
+    handleMarkForReview() {
+        //@ToDo after finishing #8 task
+        console.log('Mark for review clicked.');
+    }
+
     connectedCallback(){
         getQuizQuestion({question_name : this.question_name})
             .then(data=>{

@@ -24,13 +24,25 @@
                     </ul>
                 </div>
 
+                <!--SKIP CHECKBOX-->
+                <div class="slds-clearfix">
+                    <lightning-input
+                            class="slds-float_right"
+                            type="checkbox"
+                            label="Mark for review"
+                            onclick={handleMarkForReview}
+                    >
+                    </lightning-input>
+                </div>
+
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
                     <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>
                     <template if:true={isSkippable}>
                         <lightning-button
                                 class="slds-col slds-align_absolute-center"
-                                label="Skip" onclick={handleSkip}
+                                label="Skip"
+                                onclick={handleSkip}
                                 variant="brand"
                         >
                         </lightning-button>

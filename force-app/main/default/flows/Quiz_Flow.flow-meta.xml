@@ -83,7 +83,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3326</locationY>
+        <locationY>3446</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -250,7 +250,7 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
             <targetReference>If_Current_Answer_is_Correct</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
+            <targetReference>Create_Quiz_Report</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -304,7 +304,10 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>336</locationX>
-        <locationY>3662</locationY>
+        <locationY>3326</locationY>
+        <connector>
+            <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
+        </connector>
         <inputAssignments>
             <field>Quiz__c</field>
             <value>
@@ -437,13 +440,10 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3446</locationY>
+        <locationY>3566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Create_Quiz_Report</targetReference>
-        </connector>
         <fields>
             <name>Copy_1_of_PassedQuizText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Oh, you didn&apos;t pass! Try again!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Your Score: {!UserScore}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;Quiz Threshold: {!Get_Quiz.Threshold__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px; color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;﻿Your Time: {!Calculate_Total_Time}&lt;/span&gt;&lt;/p&gt;</fieldText>
@@ -523,13 +523,10 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3446</locationY>
+        <locationY>3566</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
-        <connector>
-            <targetReference>Create_Quiz_Report</targetReference>
-        </connector>
         <fields>
             <name>PassedQuizText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Congrats! You passed the quiz!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Your Score: {!UserScore}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Quiz Threshold: {!Get_Quiz.Threshold__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68); font-size: 20px;&quot;&gt;Your Time: {!Calculate_Total_Time}&lt;/span&gt;&lt;/p&gt;</fieldText>

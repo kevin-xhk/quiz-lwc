@@ -321,12 +321,6 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
             </value>
         </inputAssignments>
         <inputAssignments>
-            <field>User_Score__c</field>
-            <value>
-                <elementReference>UserScore</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
             <field>User__c</field>
             <value>
                 <elementReference>$User.Id</elementReference>

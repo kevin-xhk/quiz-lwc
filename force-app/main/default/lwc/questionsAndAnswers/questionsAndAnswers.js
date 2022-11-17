@@ -18,6 +18,7 @@ export default class QuestionsAndAnswers extends LightningElement {
     @track nextButtonDisabled=true;
     @api recordId;
     @api isSkippable;
+    @api isMarkedForReview = false;
     timeIntervalInstance;
     @api totalMilliseconds = 0;
 
@@ -38,8 +39,7 @@ export default class QuestionsAndAnswers extends LightningElement {
     }
 
     handleMarkForReview() {
-        //@ToDo after finishing #8 task
-        console.log('Mark for review clicked.');
+        this.isMarkedForReview = !this.isMarkedForReview;
     }
 
     connectedCallback(){

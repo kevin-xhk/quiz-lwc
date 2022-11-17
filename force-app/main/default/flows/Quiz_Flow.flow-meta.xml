@@ -231,7 +231,7 @@
         <name>Calculate_Total_Time</name>
         <dataType>String</dataType>
         <expression>TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60*60))/(1000*60))))+&quot; min &quot;+
-TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expression>
+            TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expression>
     </formulas>
     <interviewLabel>Quiz Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Quiz Flow</label>
@@ -314,6 +314,12 @@ TEXT(FLOOR((MOD({!TotalMilliseconds},(1000*60))/(1000))))+&quot; sec&quot;</expr
             <field>Time_Seconds__c</field>
             <value>
                 <elementReference>Calculate_Total_Time</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>User_Score__c</field>
+            <value>
+                <elementReference>UserScore</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

@@ -24,6 +24,17 @@
                     </ul>
                 </div>
 
+                <!--MARK FOR REVIEW CHECKBOX-->
+                <div class="slds-clearfix">
+                    <lightning-input
+                            class="slds-float_right"
+                            type="checkbox"
+                            label="Mark for review"
+                            onclick={handleMarkForReview}
+                    >
+                    </lightning-input>
+                </div>
+
                 <!-- FOOTER BUTTONS -->
                 <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
                     <lightning-button class="slds-col slds-align_absolute-center" onclick={handleVerifyClick} label="Verify" variant="brand"></lightning-button>

@@ -3,6 +3,7 @@
  */
 
 public with sharing class QuestionSelectedAnswerMap {
-    @AuraEnabled public List<String> questionId;
-    @AuraEnabled public List<String>  selectedAnswerId;
+    @AuraEnabled public String questionId;
+    @AuraEnabled public String  selectedAnswerId;
+    @AuraEnabled public Boolean isMarkedForReview;
 }

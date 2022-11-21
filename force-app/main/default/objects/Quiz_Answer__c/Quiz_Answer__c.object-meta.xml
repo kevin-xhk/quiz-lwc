@@ -155,8 +155,9 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Quiz_Answer</label>
     <nameField>
+        <displayFormat>A-{0000}</displayFormat>
         <label>Quiz_Answer Name</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Quiz_Answers</pluralLabel>
     <searchLayouts></searchLayouts>

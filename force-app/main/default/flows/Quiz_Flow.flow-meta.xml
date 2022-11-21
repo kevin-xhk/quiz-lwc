@@ -62,7 +62,7 @@
             <assignToReference>MarkedForReviewValues</assignToReference>
             <operator>Add</operator>
             <value>
-                <booleanValue>false</booleanValue>
+                <elementReference>Questions_And_Answers.isMarkedForReview</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -495,6 +495,12 @@
                     <elementReference>recordId</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>isMarkedForReview</name>
+                <value>
+                    <elementReference>Is_Marked_For_Review</elementReference>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -564,6 +570,17 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <description>Stores value of checkbox marked for review</description>
+        <name>Is_Marked_For_Review</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>is_Quiz_Already_Taken</name>
         <dataType>Boolean</dataType>

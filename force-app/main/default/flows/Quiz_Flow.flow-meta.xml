@@ -8,7 +8,7 @@
         <actionName>CreateQuestionSelectedAnswerMap</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>tempScreen</targetReference>
+            <targetReference>Final_screen</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -62,7 +62,7 @@
             <assignToReference>MarkedForReviewValues</assignToReference>
             <operator>Add</operator>
             <value>
-                <booleanValue>false</booleanValue>
+                <elementReference>Questions_And_Answers.isMarkedForReview</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -73,7 +73,7 @@
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
         <locationX>424</locationX>
-        <locationY>2918</locationY>
+        <locationY>3038</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -105,7 +105,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3350</locationY>
+        <locationY>3470</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -130,7 +130,7 @@
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
         <locationX>556</locationX>
-        <locationY>2798</locationY>
+        <locationY>2918</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -239,7 +239,7 @@
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
         <locationX>336</locationX>
-        <locationY>2678</locationY>
+        <locationY>2798</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -300,7 +300,7 @@
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>336</locationX>
-        <locationY>3230</locationY>
+        <locationY>3350</locationY>
         <connector>
             <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
         </connector>
@@ -335,7 +335,7 @@
         <name>Get_Answers</name>
         <label>Get Answers</label>
         <locationX>336</locationX>
-        <locationY>2558</locationY>
+        <locationY>2678</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -423,6 +423,42 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
+        <description>Shows all questions or questions marked for review</description>
+        <name>Final_screen</name>
+        <label>Final screen</label>
+        <locationX>336</locationX>
+        <locationY>2438</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>tempScreen</targetReference>
+        </connector>
+        <fields>
+            <name>list_of_questions</name>
+            <extensionName>c:finalScreen</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>filledQuestionValues</name>
+                <value>
+                    <elementReference>Create_Question_Answer_Map.flowMap</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>quizQuestions</name>
+                <value>
+                    <elementReference>Get_Quiz_Questions</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>Submit</nextOrFinishButtonLabel>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Quiz_Already_Passed_Screen</name>
         <label>Quiz Already Passed</label>
         <locationX>50</locationX>
@@ -442,7 +478,7 @@
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3470</locationY>
+        <locationY>3590</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -506,7 +542,7 @@
         <name>tempScreen</name>
         <label>tempScreen</label>
         <locationX>336</locationX>
-        <locationY>2438</locationY>
+        <locationY>2558</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -544,7 +580,7 @@
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3470</locationY>
+        <locationY>3590</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

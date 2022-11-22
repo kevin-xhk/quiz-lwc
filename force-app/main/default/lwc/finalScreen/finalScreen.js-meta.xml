@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Final Screen</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Final Screen</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="filledQuestionValues" type="apex://QuestionSelectedAnswerMap[]" label="Filled question values" description="Filled question values"/>
+            <property name="quizQuestions" type="@salesforce/schema/Quiz_Question__c[]" label="Quiz questions" description="Quiz questions"/>
+
+            <!-- @ToDo handle how to delete quizSubmittedToDelete because after comment there is still connection in flow-->
+            <property name="quizSubmitted" type="Boolean" label="Quiz submitted" description="Quiz submitted"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

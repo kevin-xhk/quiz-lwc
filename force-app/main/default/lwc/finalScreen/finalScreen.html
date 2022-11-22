@@ -1,0 +1,64 @@
+<!--
+ - Created by piorodak on 18.11.2022.
+ -->
+
+<!-- Final Screen -->
+<template>
+    <ul class="slds-size_1-of-1">
+        <template if:false={questionSelected}>
+            <lightning-card class="slds-align_absolute-center" title="If you want change answer, please choose the question">
+                <template for:each={quizQuestions} for:item="question">
+                    <li class="slds-align_absolute-center slds-m-bottom_x-small" key={question.Id}>
+                        <button
+                                type="submit"
+                                value={question.Id}
+                                onclick={handleSelectedQuestion}
+                                class="slds-button slds-button_neutral slds-button_stretch slds-col"
+                        >
+                            {question.iterator}. {question.Description__c}
+                        </button>
+                    </li>
+                </template>
+            </lightning-card>
+        </template>
+
+        <template if:true={questionSelected}>
+            <c-choose-answer
+                    question-id={selectedQuestionId}
+                    question-current-values={chosenQuestionCurrentValues}
+                    onchangedvalues={handleUpdatedValues}
+                    onchangeddata={handleDataUpdated}
+            >
+            </c-choose-answer>
+        </template>
+
+        <div slot="footer" class="slds-grid slds-gutters slds-clearfix">
+            <template if:false={questionSelected}>
+                <lightning-button
+                        class="slds-col slds-align_absolute-center"
+                        onclick={handleSubmit}
+                        label="Submit"
+                        variant="brand"
+                >
+                </lightning-button>
+            </template>
+            <template if:true={questionSelected}>
+                <lightning-button
+                        class="slds-col slds-align_absolute-center"
+                        label="Back"
+                        onclick={handleBack}
+                >
+                </lightning-button>
+                <lightning-button
+                        class="slds-col slds-align_absolute-center"
+                        label="Change answer"
+                        disabled={changeAnswerBtnDisabled}
+                        onclick={handleChangeAnswer}
+                        variant="brand"
+                >
+                </lightning-button>
+            </template>
+
+        </div>
+    </ul>
+</template>

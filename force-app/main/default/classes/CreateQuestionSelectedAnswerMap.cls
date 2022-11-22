@@ -23,9 +23,13 @@ public with sharing class CreateQuestionSelectedAnswerMap {
             loopIndex++;
         }
         CreateMapOutputs obj = new CreateMapOutputs();
+        System.debug(flowMap);
+
         obj.flowMap = flowMap;
 
         CreateMapOutputs[] result = new CreateMapOutputs[]{};
+        System.debug(result);
+
         result.add(obj);
         return result;
     }

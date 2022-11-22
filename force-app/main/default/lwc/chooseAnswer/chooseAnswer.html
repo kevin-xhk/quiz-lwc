@@ -1,0 +1,44 @@
+<!--
+ - Created by piorodak on 21.11.2022.
+ -->
+
+<!-- Choose Answer -->
+<template>
+    <lightning-card class="slds-col">
+        <!-- QUESTION -->
+        <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small question">
+            <p>{questionDescription}</p>
+        </div>
+
+        <!-- ANSWER BUTTONS -->
+        <div class="slds-align_absolute-center slds-grid slds-m-vertical_small slds-p-horizontal_small answers">
+            <ul class="slds-size_1-of-1">
+                <template for:each={answers} for:item="answer">
+                    <li class="slds-align_absolute-center slds-m-bottom_x-small" key={answer.Id}>
+                        <button
+                                disabled={disabled}
+                                type="submit"
+                                value={answer.Id}
+                                onclick={handleAnswerClicked}
+                                class="slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12"
+                        >
+                            {answer.Description__c}
+                        </button>
+                    </li>
+                </template>
+            </ul>
+        </div>
+
+        <!--MARK FOR REVIEW CHECKBOX-->
+        <div class="slds-clearfix">
+            <lightning-input
+                    class="slds-float_right"
+                    type="checkbox"
+                    label="Mark for review"
+                    checked={isMarkedForReview}
+                    onclick={handleMarkForReview}
+            >
+            </lightning-input>
+        </div>
+    </lightning-card>
+</template>

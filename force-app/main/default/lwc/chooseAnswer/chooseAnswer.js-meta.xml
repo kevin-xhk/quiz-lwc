@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>55.0</apiVersion>
+    <description>Choose Answer</description>
+    <isExposed>true</isExposed>
+    <masterLabel>Choose Answer</masterLabel>
+    <targets>
+        <target>lightning__AppPage</target>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="questionId" type="String" label="Question Id" description="Question Id"/>
+            <property name="totalMilliseconds" type="Integer" label="Total Milliseconds" description="Total Milliseconds" role="outputOnly"/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

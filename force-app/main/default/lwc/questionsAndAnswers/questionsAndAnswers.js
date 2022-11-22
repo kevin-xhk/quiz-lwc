@@ -38,7 +38,8 @@ export default class QuestionsAndAnswers extends LightningElement {
         this.handleNext();
     }
 
-    handleMarkForReview() {
+    handleMarkForReview(e) {
+        e.preventDefault();
         this.isMarkedForReview = !this.isMarkedForReview;
     }
 

@@ -71,13 +71,7 @@ export default class FinalScreen extends LightningElement {
         }
     }
 
-    //@ToDo to fix - button doesn't work. availableActions doesn't contain "BACK" action
-    handlePrevious() {
-        console.log('previous clicked ', JSON.stringify(this.availableActions));
-        if (this.availableActions.find((action) => action === "BACK")) {
-            const navigateBackEvent = new FlowNavigationBackEvent();
-            clearInterval(this.timeIntervalInstance);
-            this.dispatchEvent(navigateBackEvent);
-        }
+    handleBack() {
+        this.questionSelected = false;
     }
 }

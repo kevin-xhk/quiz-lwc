@@ -33,9 +33,8 @@ export default class ChooseAnswer extends LightningElement {
             .catch(error => {
                 console.log("ERROR / imperative apex call / getQuizQuestionById: " + JSON.stringify(error));
             });
-
         this.isMarkedForReview = this.questionCurrentValues.isMarkedForReview;
-        this.selectedAnswers.push(this.questionCurrentValues.selectedAnswerId);
+        this.selectedAnswers = JSON.parse(JSON.stringify(this.questionCurrentValues.selectedAnswersId));
         const parentThis = this;
         this.timeIntervalInstance = setInterval(function() {
             parentThis.totalMilliseconds += 100;
@@ -70,10 +69,11 @@ export default class ChooseAnswer extends LightningElement {
 
     @api
     updateDataForParent() {
+        console.log('selected answers!!!', JSON.stringify(this.selectedAnswers));
         const updatedDataEvent = new CustomEvent('changedvalues',
             {
                  detail: {
-                     selectedAnswerId : this.selectedAnswers,
+                     selectedAnswersId : this.selectedAnswers,
                      questionId : this.questionId,
                      isMarkedForReview : this.isMarkedForReview
                  }

@@ -10,7 +10,7 @@
     </targets>
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
-            <property name="filledQuestionValues" type="apex://QuestionSelectedAnswerMap[]" label="Filled question values" description="Filled question values"/>
+            <property name="filledQuestionValues" type="apex://QuestionSelectedAnswerArray[]" label="Filled question values" description="Filled question values"/>
             <property name="quizQuestions" type="@salesforce/schema/Quiz_Question__c[]" label="Quiz questions" description="Quiz questions"/>
 
             <!-- @ToDo handle how to delete quizSubmittedToDelete because after comment there is still connection in flow-->

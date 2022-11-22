@@ -54,13 +54,12 @@ export default class FinalScreen extends LightningElement {
         });
 
         if (index !== -1) {
-            filledQuestionValuesParsed[index].selectedAnswerId = e.detail.selectedAnswerId;
+            filledQuestionValuesParsed[index].selectedAnswersId = e.detail.selectedAnswersId;
             filledQuestionValuesParsed[index].isMarkedForReview = e.detail.isMarkedForReview;
         }
 
         //@ToDo handle how to pass these data to the flow
         this.filledQuestionValues = filledQuestionValuesParsed;
-        console.log('Updated filledQuestionValues', JSON.stringify(this.filledQuestionValues));
     }
 
     handleSubmit() {

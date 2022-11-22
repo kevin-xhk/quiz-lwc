@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>CreateQuestionSelectedAnswerMap</members>
-        <members>GetQuestionSelectedAnswerMapKeys</members>
-        <members>GetQuestionSelectedAnswerMapValues</members>
-        <members>GetValueQuestionSelectedAnswerMap</members>
-        <members>QuestionSelectedAnswerMap</members>
+        <members>CreateQuestionSelectedAnswerArray</members>
+        <members>GetQuestionSelectedAnswerArrayValues</members>
+        <members>QuestionSelectedAnswerArray</members>
         <members>QuestionsAndAnswersController</members>
         <name>ApexClass</name>
     </types>

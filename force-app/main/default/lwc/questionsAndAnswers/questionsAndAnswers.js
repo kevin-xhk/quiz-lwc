@@ -13,6 +13,7 @@ export default class QuestionsAndAnswers extends LightningElement {
     @api availableActions = [];
     @api question_name;
     @api selectedAnswerForFlow;
+    @api selectedAnswersForFlow=[];
     @track answers;
     @track disabled=false;
     @track nextButtonDisabled=true;
@@ -56,19 +57,22 @@ export default class QuestionsAndAnswers extends LightningElement {
     }
 
     selectedAnswerEvent(event){
-        this.nextButtonDisabled=false;
         if(event.target.className=='slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12'){
             event.target.className='slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12';
-            this.nextButtonDisabled=true;
             this.selectedAnswer=null;
             this.selectedAnswerForFlow=null;
+            let tempIndex=this.selectedAnswersForFlow.indexOf(event.target.value)
+            this.selectedAnswersForFlow.splice(tempIndex,1);
         }else{
-            if(this.selectedAnswer!=null){
-                this.selectedAnswer.className='slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12';
-            }
             event.target.className='slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12';
             this.selectedAnswer=event.target;
             this.selectedAnswerForFlow=this.selectedAnswer.value;
+            this.selectedAnswersForFlow.push(event.target.value);
+        }
+        if(this.selectedAnswersForFlow.length>0){
+            this.nextButtonDisabled=false;
+        }else{
+            this.nextButtonDisabled=true;
         }
     }
 

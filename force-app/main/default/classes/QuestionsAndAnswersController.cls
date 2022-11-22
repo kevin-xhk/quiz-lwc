@@ -15,4 +15,13 @@ public with sharing class QuestionsAndAnswersController {
         return [SELECT isCorrect__c FROM Quiz_Answer__c WHERE Id = :ansId].isCorrect__c;
     }
 
+    public static List<String> mapAnswersIdListToQuestions(String questionId,String[] selectedAnswersId){
+        List<Quiz_Answer__c> answersBasedOnParameterIds=[SELECT (SELECT Id FROM Quiz_Answers__r WHERE Id IN :selectedAnswersId) FROM Quiz_Question__c WHERE Id=:questionId].Quiz_Answers__r;
+        List<String> answersIdsToBeReturned=new List<String>();
+        for(Quiz_Answer__c quizAnswer : answersBasedOnParameterIds){
+            answersIdsToBeReturned.add(quizAnswer.Id);
+        }
+        return answersIdsToBeReturned;
+    }
+
 }

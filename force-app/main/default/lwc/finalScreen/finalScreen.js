@@ -59,9 +59,7 @@ export default class FinalScreen extends LightningElement {
         }
 
         //@ToDo handle how to pass these data to the flow
-        console.log('temp', JSON.stringify(filledQuestionValuesParsed));
         this.filledQuestionValues = filledQuestionValuesParsed;
-        console.log('Updated filledQuestionValues', JSON.stringify(this.filledQuestionValues));
     }
 
     handleSubmit() {

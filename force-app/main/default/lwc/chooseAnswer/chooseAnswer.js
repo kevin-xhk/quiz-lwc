@@ -13,7 +13,7 @@ export default class ChooseAnswer extends LightningElement {
     @api totalMilliseconds = 0;
     @track isMarkedForReview;
     @track answers;
-    selectedAnswers = [];
+    @track selectedAnswers = [];
     @track questionDescription;
 
     timeIntervalInstance;
@@ -33,10 +33,8 @@ export default class ChooseAnswer extends LightningElement {
             .catch(error => {
                 console.log("ERROR / imperative apex call / getQuizQuestionById: " + JSON.stringify(error));
             });
-        console.log('connected!!');
         this.isMarkedForReview = this.questionCurrentValues.isMarkedForReview;
-        this.selectedAnswers = this.questionCurrentValues.selectedAnswersId;
-        console.log('data received by child', JSON.stringify(this.selectedAnswers));
+        this.selectedAnswers = JSON.parse(JSON.stringify(this.questionCurrentValues.selectedAnswersId));
         const parentThis = this;
         this.timeIntervalInstance = setInterval(function() {
             parentThis.totalMilliseconds += 100;
@@ -57,15 +55,10 @@ export default class ChooseAnswer extends LightningElement {
         if (e.target.className.includes(' slds-button_brand')) {
             e.target.className = e.target.className.replace(' slds-button_brand', '')
             const index = this.selectedAnswers.indexOf(e.target.value);
-            console.log('index', index);
             this.selectedAnswers.splice(index, 1);
-            console.log('1');
         } else {
             e.target.className += " slds-button_brand";
-            console.log('!!!!!', JSON.stringify(this.selectedAnswers));
-            console.log('target value', e.target.value);
             this.selectedAnswers.push(e.target.value);
-            console.log('2');
         }
     }
 

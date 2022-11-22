@@ -112,7 +112,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3470</locationY>
+        <locationY>3566</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -181,6 +181,31 @@
                 <targetReference>Set_isQuizAlreadyTaken_to_True</targetReference>
             </connector>
             <label>Quiz Already Passed</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Practice_Mode_Enabled</name>
+        <label>Is Practice Mode Enabled?</label>
+        <locationX>336</locationX>
+        <locationY>3230</locationY>
+        <defaultConnector>
+            <targetReference>Create_Quiz_Report</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Disabled</defaultConnectorLabel>
+        <rules>
+            <name>PracticeModeEnabled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>practice_mode</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
+            </connector>
+            <label>PracticeModeEnabled</label>
         </rules>
     </decisions>
     <decisions>
@@ -253,7 +278,7 @@
             <targetReference>If_Current_Answer_is_Correct</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>Create_Quiz_Report</targetReference>
+            <targetReference>Is_Practice_Mode_Enabled</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -306,7 +331,7 @@
     <recordCreates>
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
-        <locationX>336</locationX>
+        <locationX>424</locationX>
         <locationY>3350</locationY>
         <connector>
             <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
@@ -477,7 +502,7 @@
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3590</locationY>
+        <locationY>3686</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -572,6 +597,16 @@
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 24px;&quot;&gt;Welcome to: {!Get_Quiz.Name}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Here&apos;s a quick description before you get started:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Description__c}&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;The threshold for passing the quiz is &lt;/span&gt;&lt;strong style=&quot;font-size: 20px;&quot;&gt;{!Get_Quiz.Threshold__c}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Ready? Click Next to start.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
+        <fields>
+            <name>practice_mode</name>
+            <dataType>Boolean</dataType>
+            <defaultValue>
+                <booleanValue>false</booleanValue>
+            </defaultValue>
+            <fieldText>Practice Mode</fieldText>
+            <fieldType>InputField</fieldType>
+            <isRequired>true</isRequired>
+        </fields>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
@@ -579,7 +614,7 @@
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3590</locationY>
+        <locationY>3686</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

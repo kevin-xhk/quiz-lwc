@@ -6,6 +6,7 @@ import {LightningElement, track, wire} from 'lwc';
 import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
 import questionMC from '@salesforce/messageChannel/QuestionMC__c';
 import verifyAnswer from '@salesforce/apex/QuestionsAndAnswersController.verifyAnswer';
+import verifyIserAnswers from '@salesforce/apex/QuestionsAndAnswersController.verifyUserAnswers';
 
 export default class Verify extends LightningElement {
 
@@ -35,14 +36,15 @@ export default class Verify extends LightningElement {
     // shape conditional rendering based on received message
     handleAnswerSubmission(message) {
         this.isVisible = false;
-        verifyAnswer({ansId : message.selectedAnswerId})
+
+        verifyUserAnswer({questionId: message.questionId, answerIds : message.selectedAnswerIds})
             .then(result => {
-                console.log('verify / apex / verifyAnswer: ' + result);
+                console.log('verify / apex / verifyUserAnswer: ' + result);
                 this.isCorrectAnswer = result;
                 this.isVisible = true;
             })
             .catch(error => {
-                console.log('verify / apex / verifyAnswer / error: ' + error);
+                console.log('verify / apex / verifyUserAnswer / error: ' + error);
             })
     }
 }

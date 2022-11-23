@@ -8,6 +8,7 @@ import { FlowNavigationNextEvent, FlowNavigationBackEvent  } from 'lightning/flo
 export default class FinalScreen extends LightningElement {
     @api filledQuestionValues;
     @api quizQuestions;
+    @track quizQuestionsToDisplay = [];
     @api chosenQuestionCurrentValues;
     @api availableActions = [];
     @api quizSubmitted; //@ToDo handle how to delete quizSubmittedToDelete because after comment there is still connection in flow
@@ -15,14 +16,37 @@ export default class FinalScreen extends LightningElement {
     @track selectedQuestionId;
     timeIntervalInstance;
     @track changeAnswerBtnDisabled = true;
+    @track showOnlyMarkedForReview = false;
+    @track noQuestionsMarkedForReview = false;
 
     connectedCallback(){
-        this.quizQuestions = this.quizQuestions.map((item, index)=> {
+        this.updateQuizQuestionsToDisplay();
+    }
+
+    updateQuizQuestionsToDisplay() {
+        this.quizQuestionsToDisplay = this.quizQuestions.map((item, index)=> {
+            const pointer = this.filledQuestionValues.findIndex(question => {
+                return question.questionId === item.Id;
+            });
+
             return {
               ...item,
-              iterator: ++index
+              iterator: ++index,
+              isMarkedForReview: this.filledQuestionValues[pointer].isMarkedForReview
             }
-        });
+        })
+        if (this.showOnlyMarkedForReview) {
+            this.quizQuestionsToDisplay = this.quizQuestionsToDisplay.filter(question => {
+                return question.isMarkedForReview === true;
+            });
+        }
+        this.noQuestionsMarkedForReview = this.quizQuestionsToDisplay.length == 0
+    }
+
+    handleShowOnlyMarkedForReview(e) {
+        e.preventDefault();
+        this.showOnlyMarkedForReview = !this.showOnlyMarkedForReview;
+        this.updateQuizQuestionsToDisplay();
     }
 
     handleSelectedQuestion(e) {
@@ -41,6 +65,7 @@ export default class FinalScreen extends LightningElement {
         const chooseAnswerComp = this.template.querySelector('c-choose-answer');
         chooseAnswerComp.updateDataForParent();
         this.changeAnswerBtnDisabled = true;
+        this.updateQuizQuestionsToDisplay();
     }
 
     handleDataUpdated(e) {

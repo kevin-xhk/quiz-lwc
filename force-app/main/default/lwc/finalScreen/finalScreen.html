@@ -6,8 +6,24 @@
 <template>
     <ul class="slds-size_1-of-1">
         <template if:false={questionSelected}>
-            <lightning-card class="slds-align_absolute-center" title="If you want change answer, please choose the question">
-                <template for:each={quizQuestions} for:item="question">
+            <div >
+                <p>
+                    If you want change answer, please choose the question
+                </p>
+                <div class="slds-clearfix">
+                    <div class="slds-float_right">
+                        <lightning-input
+                                type="checkbox"
+                                label="Show only marked for review"
+                                onchange={handleShowOnlyMarkedForReview}
+                        >
+                        </lightning-input>
+                    </div>
+                </div>
+            </div>
+
+            <lightning-card class="slds-align_absolute-center">
+                <template for:each={quizQuestionsToDisplay} for:item="question">
                     <li class="slds-align_absolute-center slds-m-bottom_x-small" key={question.Id}>
                         <button
                                 type="submit"
@@ -18,6 +34,9 @@
                             {question.iterator}. {question.Description__c}
                         </button>
                     </li>
+                </template>
+                <template if:true={noQuestionsMarkedForReview}>
+                    <p>There is no questions marked for review</p>
                 </template>
             </lightning-card>
         </template>

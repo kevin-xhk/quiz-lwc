@@ -26,6 +26,10 @@ export default class QuestionsAndAnswers extends LightningElement {
     @wire(MessageContext) messageContext;
     @track selectedAnswer;
 
+    //TODO: delete, used for only testing
+    @track qId;
+
+
     handleNext() {
         if (this.availableActions.find((action) => action === "NEXT")) {
             const navigateNextEvent = new FlowNavigationNextEvent();
@@ -48,6 +52,10 @@ export default class QuestionsAndAnswers extends LightningElement {
         getQuizQuestion({question_name : this.question_name})
             .then(data=>{
                 this.answers=data.Quiz_Answers__r;
+                
+                //TODO: delete, used only for testing
+                this.qId = data.Id;
+                console.log("qid: " + this.qId);
             }).catch(error => {
             console.log("ERROR / imperative apex call / getQuizQuestion: " + JSON.stringify(error))
         });
@@ -80,7 +88,8 @@ export default class QuestionsAndAnswers extends LightningElement {
     handleVerifyClick(){
         clearInterval(this.timeIntervalInstance);
         this.disabled=true;
-        const payload = {selectedAnswerId: this.selectedAnswer.value}
+        const payload = {questionId: this.qId, selectedAnswerIds: this.selectedAnswersForFlow}
+        console.log("payload: " + JSON.stringify(payload));
         publish(this.messageContext, questionMC, payload);
     }
 }

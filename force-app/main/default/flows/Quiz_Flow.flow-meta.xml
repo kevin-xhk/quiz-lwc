@@ -368,6 +368,12 @@
             </value>
         </inputAssignments>
         <inputAssignments>
+            <field>User_Score__c</field>
+            <value>
+                <elementReference>UserScore</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
             <field>User__c</field>
             <value>
                 <elementReference>$User.Id</elementReference>

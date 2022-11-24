@@ -8,7 +8,7 @@
         <actionName>CreateQuestionSelectedAnswerArray</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Final_screen</targetReference>
+            <targetReference>Get_User_Points</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -27,6 +27,25 @@
             <name>selectedAnswersIds</name>
             <value>
                 <elementReference>SelectedAnswersIds</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Get_User_Points</name>
+        <label>Get User Points</label>
+        <locationX>336</locationX>
+        <locationY>2438</locationY>
+        <actionName>QuestionsAndAnswersController</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Final_screen</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>qnaList</name>
+            <value>
+                <elementReference>Create_Question_Answers_Array.questionAnswersArray</elementReference>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -80,7 +99,7 @@
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
         <locationX>424</locationX>
-        <locationY>3038</locationY>
+        <locationY>3158</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -112,7 +131,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3566</locationY>
+        <locationY>3806</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -137,7 +156,7 @@
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
         <locationX>556</locationX>
-        <locationY>2918</locationY>
+        <locationY>3038</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -187,7 +206,7 @@
         <name>Is_Practice_Mode_Enabled</name>
         <label>Is Practice Mode Enabled?</label>
         <locationX>336</locationX>
-        <locationY>3230</locationY>
+        <locationY>3470</locationY>
         <defaultConnector>
             <targetReference>Create_Quiz_Report</targetReference>
         </defaultConnector>
@@ -271,7 +290,7 @@
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
         <locationX>336</locationX>
-        <locationY>2798</locationY>
+        <locationY>2918</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -332,7 +351,7 @@
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>424</locationX>
-        <locationY>3350</locationY>
+        <locationY>3590</locationY>
         <connector>
             <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
         </connector>
@@ -367,7 +386,7 @@
         <name>Get_Answers</name>
         <label>Get Answers</label>
         <locationX>336</locationX>
-        <locationY>2678</locationY>
+        <locationY>2798</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -458,7 +477,7 @@
         <name>Final_screen</name>
         <label>Final screen</label>
         <locationX>336</locationX>
-        <locationY>2438</locationY>
+        <locationY>2558</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -508,7 +527,7 @@
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3686</locationY>
+        <locationY>3926</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -572,7 +591,7 @@
         <name>tempScreen</name>
         <label>tempScreen</label>
         <locationX>336</locationX>
-        <locationY>2558</locationY>
+        <locationY>2678</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -581,7 +600,7 @@
         </connector>
         <fields>
             <name>tempDisplay</name>
-            <fieldText>&lt;p&gt;Map:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Create_Question_Answers_Array.questionAnswersArray}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Answer Ids:&lt;/p&gt;&lt;p&gt;{!SelectedAnswersIds}&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p&gt;Map:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color: rgb(68, 68, 68); background-color: rgb(255, 255, 255);&quot;&gt;{!Create_Question_Answers_Array.questionAnswersArray}&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Answer Ids:&lt;/p&gt;&lt;p&gt;{!SelectedAnswersIds}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;User Score:&lt;/p&gt;&lt;p&gt;{!Get_User_Points.score}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <showFooter>true</showFooter>
@@ -620,7 +639,7 @@
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3686</locationY>
+        <locationY>3926</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

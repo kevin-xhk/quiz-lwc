@@ -5,6 +5,14 @@
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+QuestionSelectedAnswerArray qna = new QuestionSelectedAnswerArray();
+qna.questionId = 'a017a000008mZyWAAU';
+qna.selectedAnswersId = new List<String>{'a007a00000AV0TtAAL', 'a007a00000AV0ToAAL'};
+qna.isMarkedForReview = false;
+
+QuestionSelectedAnswerArray[] qnaList = new QuestionSelectedAnswerArray[]{};
+qnaList.add(qna);
+
+System.debug(qnaList);
+System.debug(QuestionsAndAnswersController.evaluateUserScore(qnaList));
+ 

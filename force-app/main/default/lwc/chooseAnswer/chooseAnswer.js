@@ -5,6 +5,8 @@
 import {LightningElement, wire, track, api} from 'lwc';
 import getQuizQuestionById from '@salesforce/apex/QuestionsAndAnswersController.getQuizQuestionById';
 import { FlowNavigationNextEvent } from 'lightning/flowSupport';
+import { publish, MessageContext } from 'lightning/messageService';
+import questionMC from '@salesforce/messageChannel/QuestionMC__c';
 
 export default class ChooseAnswer extends LightningElement {
     @api availableActions = [];
@@ -17,6 +19,8 @@ export default class ChooseAnswer extends LightningElement {
     @track questionDescription;
 
     timeIntervalInstance;
+
+    @wire(MessageContext) messageContext;
 
     handleMarkForReview(e) {
         e.preventDefault();
@@ -79,5 +83,19 @@ export default class ChooseAnswer extends LightningElement {
                  }
             });
         this.dispatchEvent(updatedDataEvent);
+    }
+
+    // stop time tracking, disable answer buttons, send qna data to msg channel
+    handleVerifyClicked(){
+        clearInterval(this.timeIntervalInstance);
+
+        // TODO: disable answer buttons here
+
+        const payload = {
+            selectedAnswerIds: this.selectedAnswers,
+            questionId: this.questionId,
+        }
+
+        publish(this.messageContext, questionMC, payload);
     }
 }

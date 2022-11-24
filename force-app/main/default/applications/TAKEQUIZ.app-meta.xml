@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#1695C4</headerColor>
+        <logo>GENMcIntyrePlatformNetworksWinnerTa</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>TAKE QUIZ</label>
+    <navType>Standard</navType>
+    <tabs>Quiz__c</tabs>
+    <tabs>Quiz_Question__c</tabs>
+    <tabs>Quiz_Answer__c</tabs>
+    <tabs>Quiz_Report__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Quiz_Where_motivation_meets_mastery_UtilityBar</utilityBar>
+</CustomApplication>

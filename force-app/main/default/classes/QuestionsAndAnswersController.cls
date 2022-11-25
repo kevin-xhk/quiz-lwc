@@ -90,8 +90,12 @@ public with sharing class QuestionsAndAnswersController {
             WHERE Id=:qna.questionId
         ].Quiz_Answers__r).keySet().clone();
         
-        // if all selected answers match correct answers, set should be empty
+        // if all selected answers match correct answers, sets should be of the same size
+        // first set should be empty when removing matching entries
         Set<Id> userAnswerIds = new Set<Id>( (List<Id>)qna.selectedAnswersId );
+        if(correctAnswerIds.size() != userAnswerIds.size()){
+            return false;
+        }
         correctAnswerIds.removeAll(userAnswerIds);
 
         return correctAnswerIds.isEmpty();

@@ -131,7 +131,7 @@
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3374</locationY>
+        <locationY>3254</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -181,7 +181,7 @@
         <name>Is_Practice_Mode_Enabled</name>
         <label>Is Practice Mode Enabled?</label>
         <locationX>336</locationX>
-        <locationY>3038</locationY>
+        <locationY>2918</locationY>
         <defaultConnector>
             <targetReference>Create_Quiz_Report</targetReference>
         </defaultConnector>
@@ -312,7 +312,7 @@
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>424</locationX>
-        <locationY>3158</locationY>
+        <locationY>3038</locationY>
         <connector>
             <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
         </connector>
@@ -343,27 +343,6 @@
         <object>Quiz_Report__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordCreates>
-    <recordLookups>
-        <name>Get_Answers</name>
-        <label>Get Answers</label>
-        <locationX>336</locationX>
-        <locationY>2918</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Is_Practice_Mode_Enabled</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>In</operator>
-            <value>
-                <elementReference>UserSelectedAnswers</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Quiz_Answer__c</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
     <recordLookups>
         <name>Get_Quiz</name>
         <label>Get Quiz</label>
@@ -488,7 +467,7 @@
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3494</locationY>
+        <locationY>3374</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -557,7 +536,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>Get_Answers</targetReference>
+            <targetReference>Is_Practice_Mode_Enabled</targetReference>
         </connector>
         <fields>
             <name>tempDisplay</name>
@@ -600,7 +579,7 @@
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3494</locationY>
+        <locationY>3374</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -619,7 +598,7 @@
             <targetReference>Get_Quiz</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <variables>
         <name>is_Quiz_Already_Taken</name>
         <dataType>Boolean</dataType>

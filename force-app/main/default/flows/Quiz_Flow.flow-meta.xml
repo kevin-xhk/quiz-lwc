@@ -99,7 +99,7 @@
         <name>Increment_User_Score</name>
         <label>Increment User Score</label>
         <locationX>424</locationX>
-        <locationY>3158</locationY>
+        <locationY>3278</locationY>
         <assignmentItems>
             <assignToReference>UserScore</assignToReference>
             <operator>Add</operator>
@@ -127,11 +127,27 @@
             <targetReference>For_Each_Relevant_Quiz_Report</targetReference>
         </connector>
     </assignments>
+    <assignments>
+        <name>Update_question_selected_answers_array</name>
+        <label>Update question selected answers array</label>
+        <locationX>336</locationX>
+        <locationY>2678</locationY>
+        <assignmentItems>
+            <assignToReference>Create_Question_Answers_Array.questionAnswersArray</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>list_of_questions.filledQuestionValues</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>tempScreen</targetReference>
+        </connector>
+    </assignments>
     <decisions>
         <name>Did_the_User_score_higher_than_the_Quiz_threshold</name>
         <label>Did the User score higher than the Quiz threshold?</label>
         <locationX>336</locationX>
-        <locationY>3806</locationY>
+        <locationY>3926</locationY>
         <defaultConnector>
             <targetReference>Quiz_Unsuccessful</targetReference>
         </defaultConnector>
@@ -156,7 +172,7 @@
         <name>If_Current_Answer_is_Correct</name>
         <label>Is The Current Answer Correct?</label>
         <locationX>556</locationX>
-        <locationY>3038</locationY>
+        <locationY>3158</locationY>
         <defaultConnector>
             <targetReference>For_Each_Answer</targetReference>
         </defaultConnector>
@@ -206,7 +222,7 @@
         <name>Is_Practice_Mode_Enabled</name>
         <label>Is Practice Mode Enabled?</label>
         <locationX>336</locationX>
-        <locationY>3470</locationY>
+        <locationY>3590</locationY>
         <defaultConnector>
             <targetReference>Create_Quiz_Report</targetReference>
         </defaultConnector>
@@ -290,7 +306,7 @@
         <name>For_Each_Answer</name>
         <label>For Each Answer</label>
         <locationX>336</locationX>
-        <locationY>2918</locationY>
+        <locationY>3038</locationY>
         <collectionReference>Get_Answers</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -351,7 +367,7 @@
         <name>Create_Quiz_Report</name>
         <label>Create Quiz Report</label>
         <locationX>424</locationX>
-        <locationY>3590</locationY>
+        <locationY>3710</locationY>
         <connector>
             <targetReference>Did_the_User_score_higher_than_the_Quiz_threshold</targetReference>
         </connector>
@@ -386,7 +402,7 @@
         <name>Get_Answers</name>
         <label>Get Answers</label>
         <locationX>336</locationX>
-        <locationY>2798</locationY>
+        <locationY>2918</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>For_Each_Answer</targetReference>
@@ -482,7 +498,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>tempScreen</targetReference>
+            <targetReference>Update_question_selected_answers_array</targetReference>
         </connector>
         <fields>
             <name>list_of_questions</name>
@@ -527,7 +543,7 @@
         <name>Quiz_Unsuccessful</name>
         <label>Quiz Unsuccessful</label>
         <locationX>468</locationX>
-        <locationY>3926</locationY>
+        <locationY>4046</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -591,7 +607,7 @@
         <name>tempScreen</name>
         <label>tempScreen</label>
         <locationX>336</locationX>
-        <locationY>2678</locationY>
+        <locationY>2798</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -639,7 +655,7 @@
         <name>You_Passed_the_Quiz</name>
         <label>Quiz Successful</label>
         <locationX>204</locationX>
-        <locationY>3926</locationY>
+        <locationY>4046</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>

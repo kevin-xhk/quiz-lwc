@@ -4,6 +4,10 @@
 
 package.xml
 
+# standard metadata
+**/appMenus/**
+**/appSwitcher/**
+
 # LWC configuration files
 **/jsconfig.json
 **/.eslintrc.json

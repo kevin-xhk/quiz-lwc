@@ -6,7 +6,7 @@ public with sharing class QuestionsAndAnswersController {
 
     @AuraEnabled (Cacheable = true)
     public static Quiz_Question__c getQuizQuestion(String question_name){
-        return [SELECT Description__c,(SELECT Id,Description__c FROM Quiz_Answers__r) from Quiz_Question__c WHERE Description__c=:question_name ];
+        return [SELECT Description__c,(SELECT Id,Description__c FROM Quiz_Answers__r) FROM Quiz_Question__c WHERE Description__c=:question_name];
     }
 
     @AuraEnabled (Cacheable = true)
@@ -21,14 +21,6 @@ public with sharing class QuestionsAndAnswersController {
                 WHERE Id = :id
         ];
     }
-
-    // TODO: DELETE after verifyUserAnswers is fully implemented
-    // checks for answer correctness
-    @AuraEnabled (Cacheable = true)
-    public static Boolean verifyAnswer(Id ansId) {
-        return [SELECT isCorrect__c FROM Quiz_Answer__c WHERE Id = :ansId].isCorrect__c;
-    }
-
     
 
     public static List<String> mapAnswersIdListToQuestions(String questionId,String[] selectedAnswersId){

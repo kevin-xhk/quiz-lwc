@@ -1,7 +1,9 @@
 @isTest
 private with sharing class QuestionsAndAnswersController_TEST {
     
+    // ******************************
     // verifyUserAnswers test methods
+    // ******************************
 
     @isTest
     static void testVerifyUserAnswersCorrect() {
@@ -82,7 +84,10 @@ private with sharing class QuestionsAndAnswersController_TEST {
         System.assertEquals(false, result, 'Question Answered Incorrectly.');
     }
 
+
+    // ****************************
     // getQuizQuestion test methods
+    // ****************************
 
     @isTest
     static void testGetQuizQuestion() {
@@ -101,32 +106,58 @@ private with sharing class QuestionsAndAnswersController_TEST {
     @isTest
     static void testGetQuizQuestionEmpty() {
         // given
+        String questionDescription = '';
 
         // when
+        Exception error;
+        try {
+            Quiz_Question__c result = QuestionsAndAnswersController.getQuizQuestion(questionDescription);
+        } catch (Exception e) {
+            error = e;
+        }
 
         // then
-        System.assert(true);
+        System.assertNotEquals(true, String.isEmpty(error.getMessage()), 'Error should have been thrown.');
+        System.assertEquals('System.QueryException', error.getTypeName(), 'Exception types do not match.');
+        System.assertEquals('List has no rows for assignment to SObject', error.getMessage(), 'Exception messages do not match.');
     }
 
+
+    // ****************************
     // getQuestionById test methods
+    // ****************************
 
     @isTest
     static void testGetQuestionById() {
         // given
+        QuizDataFactory.Qna qna = QuizDataFactory.getQnaOfSampleQuiz(2, 0); // no correct answer
+        Quiz_Question__c question = [SELECT Id FROM Quiz_Question__c WHERE Id  = :qna.questionId LIMIT 1];
 
         // when
+        Quiz_Question__c result = QuestionsAndAnswersController.getQuizQuestionById(question.Id);
 
         // then
-        System.assert(true);
+        System.assertEquals(question.Id, result.Id, 'Ids do not match.');
     }
 
     @isTest
     static void testGetQuestionByIdEmpty() {
         // given
+        String questionId = '';
 
         // when
+        Exception error;
+        try {
+            Quiz_Question__c result = QuestionsAndAnswersController.getQuizQuestionById(questionId);
+        } catch (Exception e) {
+            error = e;
+            System.debug(error.getTypeName());
+            System.debug(error.getMessage());
+        }
 
         // then
-        System.assert(true);
+        System.assertNotEquals(true, String.isEmpty(error.getMessage()), 'Error should have been thrown.');
+        System.assertEquals('System.QueryException', error.getTypeName(), 'Exception types do not match.');
+        System.assertEquals('List has no rows for assignment to SObject', error.getMessage(), 'Exception messages do not match.');
     }
 }

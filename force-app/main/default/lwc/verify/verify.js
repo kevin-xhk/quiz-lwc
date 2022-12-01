@@ -5,7 +5,6 @@
 import {LightningElement, track, wire} from 'lwc';
 import { subscribe, unsubscribe, MessageContext } from 'lightning/messageService';
 import questionMC from '@salesforce/messageChannel/QuestionMC__c';
-import verifyAnswer from '@salesforce/apex/QuestionsAndAnswersController.verifyAnswer';
 import verifyUserAnswers from '@salesforce/apex/QuestionsAndAnswersController.verifyUserAnswers';
 
 export default class Verify extends LightningElement {

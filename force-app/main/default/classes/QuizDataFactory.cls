@@ -3,7 +3,7 @@ public with sharing class QuizDataFactory {
 
     // TODO: make it create a dynamic nr of qna's, right now creates
     // 3 quizzes with 1 question each, of which have 3 answers (2C, 1W)
-    public static CreateQuestionSelectedAnswerArray.CreateArrayInputs[] createInputsforArray(){
+    public static QuestionSelectedAnswerArrayBuilder.CreateArrayInputs[] createInputsforArray(){
         // create qna objs
         QuizDataFactory.Qna qna0 = QuizDataFactory.getQnaOfSampleQuiz(3, 2); // 0,1 are right, 2 is wrong
         QuizDataFactory.Qna qna1 = QuizDataFactory.getQnaOfSampleQuiz(3, 2); // 0,1 are right, 2 is wrong        
@@ -34,8 +34,8 @@ public with sharing class QuizDataFactory {
         reviewMarks.add(qna2.markedForReview);
 
         // wrap input
-        CreateQuestionSelectedAnswerArray.CreateArrayInputs[] input = new List<CreateQuestionSelectedAnswerArray.CreateArrayInputs> {
-            new CreateQuestionSelectedAnswerArray.CreateArrayInputs()
+        QuestionSelectedAnswerArrayBuilder.CreateArrayInputs[] input = new List<QuestionSelectedAnswerArrayBuilder.CreateArrayInputs> {
+            new QuestionSelectedAnswerArrayBuilder.CreateArrayInputs()
         };
         input[0].questionIds = questionIds;
         input[0].selectedAnswersIds = answerIds;

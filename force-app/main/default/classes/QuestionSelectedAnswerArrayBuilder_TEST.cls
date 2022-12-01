@@ -1,13 +1,13 @@
 @isTest
-private with sharing class CreateQuestionSelectedAnswerArray_TEST {
+private with sharing class QuestionSelectedAnswerArrayBuilder_TEST {
     
     @isTest
     static void testCreateMap(){
         // GIVEN
-        CreateQuestionSelectedAnswerArray.CreateArrayInputs[] input = QuizDataFactory.createInputsForArray();
+        QuestionSelectedAnswerArrayBuilder.CreateArrayInputs[] input = QuizDataFactory.createInputsForArray();
 
         // WHEN
-        CreateQuestionSelectedAnswerArray.CreateArrayOutputs[] result = CreateQuestionSelectedAnswerArray.createMap(input);
+        QuestionSelectedAnswerArrayBuilder.CreateArrayOutputs[] result = QuestionSelectedAnswerArrayBuilder.createMap(input);
 
         // THEN
         System.assertEquals(input[0].questionIds.size(), result[0].questionAnswersArray.size(), 'number of qna do not match.');
@@ -16,12 +16,12 @@ private with sharing class CreateQuestionSelectedAnswerArray_TEST {
     @isTest
     static void testCreateMapEmpty(){
         // GIVEN
-        CreateQuestionSelectedAnswerArray.CreateArrayInputs[] input = new List<CreateQuestionSelectedAnswerArray.CreateArrayInputs>{};
+        QuestionSelectedAnswerArrayBuilder.CreateArrayInputs[] input = new List<QuestionSelectedAnswerArrayBuilder.CreateArrayInputs>{};
 
         // WHEN
         Exception error;
         try {
-            CreateQuestionSelectedAnswerArray.CreateArrayOutputs[] result = CreateQuestionSelectedAnswerArray.createMap(input);
+            QuestionSelectedAnswerArrayBuilder.CreateArrayOutputs[] result = QuestionSelectedAnswerArrayBuilder.createMap(input);
         } catch (Exception e) {
             error = e;
         }

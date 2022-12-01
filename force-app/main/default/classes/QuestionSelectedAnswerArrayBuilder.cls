@@ -2,7 +2,7 @@
  * Created by mshkrepa on 11/16/2022.
  */
 
-public with sharing class CreateQuestionSelectedAnswerArray {
+public with sharing class QuestionSelectedAnswerArrayBuilder {
     @InvocableMethod(label='Create Standard Question-Answers Array')
     public static CreateArrayOutputs[] createMap(CreateArrayInputs[] input){
 

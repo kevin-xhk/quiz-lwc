@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>CreateQuestionSelectedAnswerArray</apexClass>
+        <apexClass>QuestionSelectedAnswerArrayBuilder</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>QuestionSelectedAnswerArrayBuilder_TEST</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -10,6 +14,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>QuestionsAndAnswersController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>QuestionsAndAnswersController_TEST</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>QuizDataFactory</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <custom>false</custom>

@@ -5,7 +5,7 @@
         <label>Create Question-Answers Array</label>
         <locationX>336</locationX>
         <locationY>2318</locationY>
-        <actionName>CreateQuestionSelectedAnswerArray</actionName>
+        <actionName>QuestionSelectedAnswerArrayBuilder</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Final_screen</targetReference>

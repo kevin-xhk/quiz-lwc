@@ -13,7 +13,6 @@
     </types>
     <types>
         <members>questionsAndAnswers</members>
-        <members>questionsAndAnswersMiger</members>
         <members>verify</members>
         <name>LightningComponentBundle</name>
     </types>

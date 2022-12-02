@@ -4,9 +4,7 @@
 
 import {LightningElement, wire, track, api} from 'lwc';
 import getQuizQuestionById from '@salesforce/apex/QuestionsAndAnswersController.getQuizQuestionById';
-import { FlowNavigationNextEvent } from 'lightning/flowSupport';
-import { publish, MessageContext } from 'lightning/messageService';
-import questionMC from '@salesforce/messageChannel/QuestionMC__c';
+import { MessageContext } from 'lightning/messageService';
 
 export default class ChooseAnswer extends LightningElement {
     @api availableActions = [];
@@ -22,12 +20,20 @@ export default class ChooseAnswer extends LightningElement {
 
     @wire(MessageContext) messageContext;
 
+    /**
+     * Method responsible for handling the changing the value of the "Mark For Review" button
+     */
     handleMarkForReview(e) {
         e.preventDefault();
         this.dataChanged();
         this.isMarkedForReview = !this.isMarkedForReview;
     }
 
+    /**
+     * Method executed when the component is loaded for the first time;
+     * Functions from the controller are called to populate the lwc with the corresponding data
+     * and the process for counting the time (in milliseconds) is started
+     */
     connectedCallback(){
         getQuizQuestionById({id : this.questionId})
             .then(data => {
@@ -45,6 +51,9 @@ export default class ChooseAnswer extends LightningElement {
         }, 100);
     }
 
+    /**
+     * Method responsible for changing the styling on the selected answers
+     */
     renderedCallback() {
         this.selectedAnswers.forEach(answer => {
             const correctAnswerBtn = this.template.querySelector('button[value="' + answer + '"]');
@@ -53,7 +62,11 @@ export default class ChooseAnswer extends LightningElement {
             }
         });
     }
-
+    /**
+     * Method thrown whenever one of the answers is selected or unselected;
+     * The styling of the button changes and the value of the button is added or
+     * removed to the selected answers array (selectedAnswersForFlow[]) based on selection and deselection
+     */
     handleAnswerClicked(e){
         this.dataChanged();
         if (e.target.className.includes(' slds-button_brand')) {
@@ -71,6 +84,9 @@ export default class ChooseAnswer extends LightningElement {
         this.dispatchEvent(changedData);
     }
 
+    /**
+     * Method responsible for updating the changed answers values
+     */
     @api
     updateDataForParent() {
         console.log('selected answers!!!', JSON.stringify(this.selectedAnswers));
@@ -85,17 +101,4 @@ export default class ChooseAnswer extends LightningElement {
         this.dispatchEvent(updatedDataEvent);
     }
 
-    // stop time tracking, disable answer buttons, send qna data to msg channel
-    handleVerifyClicked(){
-        clearInterval(this.timeIntervalInstance);
-
-        // TODO: disable answer buttons here
-
-        const payload = {
-            selectedAnswerIds: this.selectedAnswers,
-            questionId: this.questionId,
-        }
-
-        publish(this.messageContext, questionMC, payload);
-    }
 }

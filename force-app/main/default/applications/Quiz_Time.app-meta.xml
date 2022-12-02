@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#0070D2</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>A platform for creating and taking quizzes!</description>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>Quiz Time</label>
+    <navType>Standard</navType>
+    <tabs>Quiz__c</tabs>
+    <tabs>Quiz_Question__c</tabs>
+    <tabs>Quiz_Answer__c</tabs>
+    <tabs>Quiz_Report__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>Quiz_Time_UtilityBar</utilityBar>
+</CustomApplication>

@@ -12,9 +12,8 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="filledQuestionValues" type="apex://QuestionSelectedAnswerArray[]" label="Filled question values" description="Filled question values"/>
             <property name="quizQuestions" type="@salesforce/schema/Quiz_Question__c[]" label="Quiz questions" description="Quiz questions"/>
-
-            <!-- @ToDo handle how to delete quizSubmittedToDelete because after comment there is still connection in flow-->
             <property name="quizSubmitted" type="Boolean" label="Quiz submitted" description="Quiz submitted"/>
+            <property name="totalMilliseconds" type="Integer" label="Total Milliseconds" description="Total Milliseconds" role="outputOnly"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

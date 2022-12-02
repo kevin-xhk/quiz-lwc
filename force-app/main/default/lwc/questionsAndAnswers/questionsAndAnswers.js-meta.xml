@@ -11,10 +11,10 @@
     <targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
             <property name="recordId" type="String" label="Record Id" description="Record Id"/>
-            <property name="isMarkedForReview" type="Boolean" label="Is marked for review" description="Stores value of checkbox marked for review"/>
+            <property name="isMarkedForReview" type="Boolean" label="Is marked for review" description="Stores value of checkbox marked for review" role="outputOnly"/>
             <property name="isSkippable" type="Boolean" label="Is skippable" description="Check if quiz is skippable"/>
+            <property name="isPracticeMode" type="Boolean" label="Is Practice Mode" description="Check if practice mode is enabled"/>
             <property name="question_name" type="String" label="Question Name" description="Question Name"/>
-            <property name="selectedAnswerForFlow" type="String" label="Selected Answer" description="Selected Answer" role="outputOnly"/>
             <property name="selectedAnswersForFlow" type="String[]" label="Selected Answers" description="Selected Answers" role="outputOnly"/>
             <property name="totalMilliseconds" type="Integer" label="Total Milliseconds" description="Total Milliseconds" role="outputOnly"/>
         </targetConfig>

@@ -4,11 +4,23 @@
 
 public with sharing class QuestionsAndAnswersController {
 
+    /**
+    * Gets Quiz_Question record and children based on question description
+    * @param question_name :  The question description
+    *
+    * @return Quiz_Question__c: Corresponding quiz question and answers
+    */
     @AuraEnabled (Cacheable = true)
     public static Quiz_Question__c getQuizQuestion(String question_name){
         return [SELECT Description__c,(SELECT Id,Description__c FROM Quiz_Answers__r) from Quiz_Question__c WHERE Description__c=:question_name ];
     }
 
+    /**
+    * Gets Quiz_Question record and children based on question id
+    * @param id :  The question record id
+    *
+    * @return Quiz_Question__c: Corresponding quiz question and answers
+    */
     @AuraEnabled (Cacheable = true)
     public static Quiz_Question__c getQuizQuestionById(String id) {
         return [
@@ -22,15 +34,13 @@ public with sharing class QuestionsAndAnswersController {
         ];
     }
 
-    // TODO: DELETE after verifyUserAnswers is fully implemented
-    // checks for answer correctness
-    @AuraEnabled (Cacheable = true)
-    public static Boolean verifyAnswer(Id ansId) {
-        return [SELECT isCorrect__c FROM Quiz_Answer__c WHERE Id = :ansId].isCorrect__c;
-    }
-
-    
-
+    /**
+    * Maps selected Answer records to their corresponding parents based on question id
+    * @param questionId :  The question record id
+    * @param selectedAnswersId :  Array of selected answer record ids
+    *
+    * @return List<String>: List of Quiz_Answer__c ids that have a parent reference to questionId
+    */
     public static List<String> mapAnswersIdListToQuestions(String questionId,String[] selectedAnswersId){
         List<Quiz_Answer__c> answersBasedOnParameterIds=[SELECT (SELECT Id FROM Quiz_Answers__r WHERE Id IN :selectedAnswersId) FROM Quiz_Question__c WHERE Id=:questionId].Quiz_Answers__r;
         List<String> answersIdsToBeReturned=new List<String>();

@@ -12,24 +12,24 @@ export default class QuestionsAndAnswers extends LightningElement {
 
     @api availableActions = [];
     @api question_name;
-    @api selectedAnswerForFlow;
     @api selectedAnswersForFlow=[];
     @track answers;
     @track disabled=false;
     @track nextButtonDisabled=true;
     @api recordId;
     @api isSkippable;
+    @api isPracticeMode;
     @api isMarkedForReview = false;
     timeIntervalInstance;
     @api totalMilliseconds = 0;
 
     @wire(MessageContext) messageContext;
-    @track selectedAnswer;
+    @track questionId;
 
-    //TODO: delete, used for only testing
-    @track qId;
-
-
+    /**
+     * Method responsible for handling the "Next" button functionality and interrupting
+     * the millisecond calculating process
+     */
     handleNext() {
         if (this.availableActions.find((action) => action === "NEXT")) {
             const navigateNextEvent = new FlowNavigationNextEvent();
@@ -38,24 +38,31 @@ export default class QuestionsAndAnswers extends LightningElement {
         }
     }
 
+    /**
+     * Method responsible for handling the "Skip" button
+     */
     handleSkip() {
-        this.selectedAnswerForFlow = '';
         this.handleNext();
     }
 
+    /**
+     * Method responsible for handling the "Mark For Review" checkbox functionality
+     */
     handleMarkForReview(e) {
         e.preventDefault();
         this.isMarkedForReview = !this.isMarkedForReview;
     }
 
+    /**
+     * Method executed when the component is loaded for the first time;
+     * Functions from the controller are called to populate the lwc with the corresponding data
+     * and the process for counting the time (in milliseconds) is started
+     */
     connectedCallback(){
         getQuizQuestion({question_name : this.question_name})
             .then(data=>{
                 this.answers=data.Quiz_Answers__r;
-                
-                //TODO: delete, used only for testing
-                this.qId = data.Id;
-                console.log("qid: " + this.qId);
+                this.questionId = data.Id;
             }).catch(error => {
             console.log("ERROR / imperative apex call / getQuizQuestion: " + JSON.stringify(error))
         });
@@ -65,17 +72,18 @@ export default class QuestionsAndAnswers extends LightningElement {
         }, 100);
     }
 
+    /**
+     * Method thrown whenever one of the answers is selected or unselected;
+     * The styling of the button changes and the value of the button is added or
+     * removed to the selected answers array (selectedAnswersForFlow[]) based on selection and deselection
+     */
     selectedAnswerEvent(event){
-        if(event.target.className=='slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12'){
-            event.target.className='slds-button slds-button_neutral slds-button_stretch slds-col slds-size_5-of-12';
-            this.selectedAnswer=null;
-            this.selectedAnswerForFlow=null;
+        if(event.target.className.includes(' slds-button_brand')){
+            event.target.className = event.target.className.replace(' slds-button_brand', '')
             let tempIndex=this.selectedAnswersForFlow.indexOf(event.target.value)
             this.selectedAnswersForFlow.splice(tempIndex,1);
         }else{
-            event.target.className='slds-button slds-button_brand slds-button_stretch slds-col slds-size_5-of-12';
-            this.selectedAnswer=event.target;
-            this.selectedAnswerForFlow=this.selectedAnswer.value;
+            event.target.className += " slds-button_brand";
             this.selectedAnswersForFlow.push(event.target.value);
         }
         if(this.selectedAnswersForFlow.length>0){
@@ -88,7 +96,7 @@ export default class QuestionsAndAnswers extends LightningElement {
     handleVerifyClick(){
         clearInterval(this.timeIntervalInstance);
         this.disabled=true;
-        const payload = {questionId: this.qId, selectedAnswerIds: this.selectedAnswersForFlow}
+        const payload = {questionId: this.questionId, selectedAnswerIds: this.selectedAnswersForFlow}
         console.log("payload: " + JSON.stringify(payload));
         publish(this.messageContext, questionMC, payload);
     }

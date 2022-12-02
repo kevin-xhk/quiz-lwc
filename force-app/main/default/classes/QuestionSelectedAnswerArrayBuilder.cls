@@ -2,7 +2,13 @@
  * Created by mshkrepa on 11/16/2022.
  */
 
-public with sharing class CreateQuestionSelectedAnswerArray {
+public with sharing class QuestionSelectedAnswerArrayBuilder {
+    /**
+    * Method responsible for creating the QuestionsSelectedAnswerArray that is to be used in the main flow
+    * @param CreateArrayInputs[] :  Array of the inserted corresponding variables from the flow
+    *
+    * @return CreateArrayOutputs[]: Corresponding array of the mapped inputs classes
+    */
     @InvocableMethod(label='Create Standard Question-Answers Array')
     public static CreateArrayOutputs[] createMap(CreateArrayInputs[] input){
 

@@ -12,7 +12,7 @@ public with sharing class QuestionsAndAnswersController {
     */
     @AuraEnabled (Cacheable = true)
     public static Quiz_Question__c getQuizQuestion(String question_name){
-        return [SELECT Description__c,(SELECT Id,Description__c FROM Quiz_Answers__r) from Quiz_Question__c WHERE Description__c=:question_name ];
+        return [SELECT Description__c,(SELECT Id,Description__c FROM Quiz_Answers__r) FROM Quiz_Question__c WHERE Description__c=:question_name];
     }
 
     /**
@@ -50,6 +50,7 @@ public with sharing class QuestionsAndAnswersController {
         return answersIdsToBeReturned;
     }
 
+    // lwc-friendly method for sending a single qna and receive the expected result
     @AuraEnabled
     public static Boolean verifyUserAnswers(String questionId, List<String> answerIds){
 
@@ -76,11 +77,13 @@ public with sharing class QuestionsAndAnswersController {
     @InvocableMethod(label='Evaluate user points for questionSelectedAnswers passed')
     public static List<UserScore> evaluateUserScore(List<UserSubmittedAnswers> input){
 
+        // prepare output wrapper
         List<UserScore> output = new List<UserScore>{};
         UserScore userScore = new userScore();
         userScore.score = 0;
         output.add(userScore);
 
+        // if qna is valid, add a point
         for(QuestionSelectedAnswerArray qna : input[0].qnaList){
             if(isQuestionUserAnswersCorrect(qna)){
                 output[0].score++;
@@ -90,7 +93,12 @@ public with sharing class QuestionsAndAnswersController {
         return output;
     }
 
-    // helper - evaluates if a single question is answered correctly
+
+    // ******************
+    // HELPERS
+    // ******************
+
+    // evaluates if a single question is answered correctly
     private static Boolean isQuestionUserAnswersCorrect(QuestionSelectedAnswerArray qna){
 
         // get ids of correct answers
@@ -100,17 +108,23 @@ public with sharing class QuestionsAndAnswersController {
             WHERE Id=:qna.questionId
         ].Quiz_Answers__r).keySet().clone();
         
-        // if all selected answers match correct answers, sets should be of the same size
-        // first set should be empty when removing matching entries
+        // for a positive evaluation, the user answer size and the correct answer size must match
+        // and all user selections must be present in the correct answer list.
         Set<Id> userAnswerIds = new Set<Id>( (List<Id>)qna.selectedAnswersId );
         if(correctAnswerIds.size() != userAnswerIds.size()){
             return false;
         }
         correctAnswerIds.removeAll(userAnswerIds);
 
+        // if no more entries remain in the set, the user answered correctly
         return correctAnswerIds.isEmpty();
     }
 
+
+    // *******************
+    // WRAPPERS
+    // *******************
+    
     // internal class to wrap invocable method input
     public class UserSubmittedAnswers {
         @InvocableVariable(label='List of QuestionSelectedAnswerArray')
